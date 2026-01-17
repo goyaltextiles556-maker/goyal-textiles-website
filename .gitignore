@@ -1,0 +1,14 @@
+
+# Dependencies
+/node_modules
+
+# Vite
+/dist
+.DS_Store
+*.log
+
+# Local secrets
+.dev.vars
+
+# IDE
+.vscode
