@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     : 0;
 
   return (
-    <div className="bg-white border border-gray-200/80 p-4 flex flex-col h-full rounded-lg">
+    <div className="bg-white border border-gray-200/80 p-4 flex flex-col h-full rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1">
       <Link to={`/product/${product.id}`} className="block mb-4">
         <div className="aspect-w-1 aspect-h-1 bg-gray-100 overflow-hidden rounded-md">
           <img 

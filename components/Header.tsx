@@ -125,23 +125,25 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      <div className={`md:hidden bg-off-white shadow-md overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-48' : 'max-h-0'}`}>
-        <nav className="flex flex-col p-4">
-          {navLinks.map((link) => {
-            const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={(e) => handleNavClick(e, link.to)}
-                className={`py-2 text-base transition-colors text-left ${
-                  isLinkActive ? 'font-semibold text-primary-blue' : 'font-medium text-gray-700 hover:text-primary-blue'
-                }`}
-              >
-                {link.text}
-              </Link>
-            );
-          })}
+      <div className={`md:hidden bg-off-white/95 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-24' : 'max-h-0'}`}>
+        <nav className="flex justify-center items-center h-24">
+            <div className="flex items-center space-x-1 p-1 bg-black/5 rounded-full">
+              {navLinks.map((link) => {
+                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={(e) => handleNavClick(e, link.to)}
+                    className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 block ${
+                      isLinkActive ? 'bg-off-white text-primary-blue shadow-sm' : 'text-primary-blue hover:bg-black/10'
+                    }`}
+                  >
+                    {link.text}
+                  </Link>
+                );
+              })}
+            </div>
         </nav>
       </div>
     </header>

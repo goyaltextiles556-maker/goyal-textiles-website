@@ -12,15 +12,15 @@ const HomePage: React.FC = () => {
   const { setActiveSection } = useScrollSpy();
   const [titleStyle, setTitleStyle] = useState<React.CSSProperties>({});
   const [contentOpacity, setContentOpacity] = useState(1);
+  const [isCollectionsVisible, setIsCollectionsVisible] = useState(false);
 
   useEffect(() => {
     const handleAnimationUpdate = () => {
       const scrollY = window.scrollY;
       const progress = Math.min(1, scrollY / ANIMATION_END_SCROLL);
       
-      // Animate scale, upward movement, and fade-out opacity
       const scale = 1 - 0.7 * progress;
-      const top = 45 - 30 * progress; // Move up as it shrinks
+      const top = 45 - 30 * progress;
       const opacity = 1 - progress;
 
       setTitleStyle({
@@ -29,7 +29,6 @@ const HomePage: React.FC = () => {
         left: '50%',
         transform: `translate(-50%, -50%) scale(${scale})`,
         opacity: opacity,
-        // Hide with pointer-events when invisible to avoid capturing clicks
         pointerEvents: progress >= 1 ? 'none' : 'auto',
         willChange: 'transform, opacity, top',
       });
@@ -53,11 +52,12 @@ const HomePage: React.FC = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setActiveSection('categories');
+          setIsCollectionsVisible(true);
         } else if (entry.boundingClientRect.top > 0) {
           setActiveSection('home');
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.15 }
     );
 
     const currentRef = collectionsRef.current;
@@ -67,20 +67,16 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      {/* Animated Hero Title - This element now fades out on scroll */}
       <Link
         to="/"
         style={titleStyle}
         className="z-50 text-5xl sm:text-6xl md:text-8xl font-bold uppercase font-display text-center sm:whitespace-nowrap text-off-white"
-        // Hide from accessibility tree when it's not the primary title to avoid duplicates
         aria-hidden={titleStyle.opacity === 0}
       >
         GOYAL TEXTILES
       </Link>
 
-      {/* Hero Section */}
       <section className="relative h-[90vh] text-off-white overflow-hidden">
-        {/* Background Image & Overlay */}
         <div className="absolute inset-0 w-full h-full -z-10">
           <img 
             src="https://picsum.photos/seed/hero-fabric/1600/1200" 
@@ -91,7 +87,6 @@ const HomePage: React.FC = () => {
           <div className="absolute inset-0 bg-primary-blue/40"></div>
         </div>
         
-        {/* Fading Content */}
         <div 
           style={{ opacity: contentOpacity, willChange: 'opacity', pointerEvents: contentOpacity > 0 ? 'auto' : 'none' }} 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 mt-20 text-center w-full px-4"
@@ -107,8 +102,11 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section ref={collectionsRef} id="categories" className="bg-off-white pt-12 pb-20 text-center scroll-mt-28">
+      <section 
+        ref={collectionsRef} 
+        id="categories" 
+        className={`bg-off-white pt-12 pb-20 text-center scroll-mt-28 transition-all duration-700 ease-out ${isCollectionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-display font-bold text-primary-blue mb-12">Our Fabric Collections</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
