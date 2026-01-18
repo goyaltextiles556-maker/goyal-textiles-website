@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 import { useCart } from '../hooks/useCart';
 import { useScrollSpy } from '../context/ScrollSpyContext';
@@ -14,17 +14,13 @@ const Header: React.FC = () => {
   const [logoOpacity, setLogoOpacity] = useState(0);
   const { activeSection } = useScrollSpy();
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isHomePage) {
-        setIsScrolled(window.scrollY > 50);
-      } else {
-        setIsScrolled(true);
-      }
+      setIsScrolled(window.scrollY > 50 || !isHomePage);
     };
-    
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -35,17 +31,35 @@ const Header: React.FC = () => {
       setLogoOpacity(1);
       return;
     }
-
     const handleLogoFade = () => {
       const scrollY = window.scrollY;
       const progress = Math.min(1, scrollY / ANIMATION_END_SCROLL);
       setLogoOpacity(progress);
     };
-    
-    handleLogoFade(); // Set initial state
+    handleLogoFade();
     window.addEventListener('scroll', handleLogoFade, { passive: true });
     return () => window.removeEventListener('scroll', handleLogoFade);
   }, [isHomePage]);
+
+  const handleNavClick = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+
+    if (path === '/' || path.startsWith('/#')) {
+      if (!isHomePage) {
+        navigate(path);
+      } else {
+        const hash = path.split('#')[1];
+        if (hash) {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    } else {
+      navigate(path);
+    }
+  };
 
   const navLinks = [
     { to: '/', text: 'Home', id: 'home' },
@@ -60,15 +74,11 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-1">
-            {/* This logo is always rendered but fades in on the homepage */}
             <Link 
               to="/" 
+              onClick={(e) => handleNavClick(e, '/')}
               className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-opacity duration-100 whitespace-nowrap"
-              style={{ 
-                opacity: logoOpacity, 
-                textShadow: logoOpacity > 0.9 ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none'
-              }}
-              // Hide from accessibility tree during transition to avoid duplicate content
+              style={{ opacity: isHomePage ? logoOpacity : 1, textShadow: (isHomePage && logoOpacity > 0.9) || !isHomePage ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none' }}
               aria-hidden={isHomePage && logoOpacity < 1}
             >
               GOYAL TEXTILES
@@ -79,21 +89,15 @@ const Header: React.FC = () => {
             <div className={`transition-colors duration-300 rounded-full ${showSolidHeader ? 'bg-black/5' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
               <div className="flex items-center space-x-1 p-1">
                 {navLinks.map((link) => {
-                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (!isHomePage && location.pathname === link.to);
-
+                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
                   return (
                     <Link
                       key={link.to}
                       to={link.to}
-                      className={
-                        `px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 block ${
-                          isLinkActive
-                            ? 'bg-off-white text-primary-blue shadow-sm'
-                            : showSolidHeader
-                            ? 'text-primary-blue hover:bg-black/10'
-                            : 'text-off-white hover:bg-off-white/20'
-                        }`
-                      }
+                      onClick={(e) => handleNavClick(e, link.to)}
+                      className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 block ${
+                        isLinkActive ? 'bg-off-white text-primary-blue shadow-sm' : showSolidHeader ? 'text-primary-blue hover:bg-black/10' : 'text-off-white hover:bg-off-white/20'
+                      }`}
                     >
                       {link.text}
                     </Link>
@@ -121,31 +125,25 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      {isMenuOpen && (
-        <div className="md:hidden bg-off-white shadow-lg border-t border-gray-200">
-          <div className="px-2 py-3">
-            <nav className="flex flex-col space-y-1">
-              {navLinks.map((link) => {
-                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (!isHomePage && location.pathname === link.to);
-                return (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`block px-3 py-2 rounded-md text-base transition-colors ${
-                      isLinkActive
-                        ? 'font-semibold text-primary-blue bg-blue-50'
-                        : 'font-medium text-gray-700 hover:text-primary-blue hover:bg-gray-100'
-                    }`}
-                  >
-                    {link.text}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
-      )}
+      <div className={`md:hidden bg-off-white shadow-md overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-48' : 'max-h-0'}`}>
+        <nav className="flex flex-col p-4">
+          {navLinks.map((link) => {
+            const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={(e) => handleNavClick(e, link.to)}
+                className={`py-2 text-base transition-colors text-left ${
+                  isLinkActive ? 'font-semibold text-primary-blue' : 'font-medium text-gray-700 hover:text-primary-blue'
+                }`}
+              >
+                {link.text}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
     </header>
   );
 };
