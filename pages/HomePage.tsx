@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Categories Section */}
-      <section ref={collectionsRef} id="categories" className="bg-off-white pt-12 pb-20 text-center">
+      <section ref={collectionsRef} id="categories" className="bg-off-white pt-12 pb-20 text-center scroll-mt-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-display font-bold text-primary-blue mb-12">Our Fabric Collections</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">

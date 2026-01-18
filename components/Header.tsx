@@ -49,10 +49,11 @@ const Header: React.FC = () => {
 
   const navLinks = [
     { to: '/', text: 'Home', id: 'home' },
-    { to: '/categories', text: 'Categories', id: 'categories' },
+    { to: '/#categories', text: 'Categories', id: 'categories' },
   ];
 
   const showSolidHeader = isScrolled || !isHomePage;
+  const isCategoriesPage = location.pathname.startsWith('/category');
 
   return (
     <header className={`fixed w-full top-0 z-40 transition-all duration-300 ${showSolidHeader ? 'bg-off-white/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
@@ -62,7 +63,7 @@ const Header: React.FC = () => {
             {/* This logo is always rendered but fades in on the homepage */}
             <Link 
               to="/" 
-              className="text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-opacity duration-100"
+              className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-opacity duration-100 whitespace-nowrap"
               style={{ 
                 opacity: logoOpacity, 
                 textShadow: logoOpacity > 0.9 ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none'
@@ -78,10 +79,10 @@ const Header: React.FC = () => {
             <div className={`transition-colors duration-300 rounded-full ${showSolidHeader ? 'bg-black/5' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
               <div className="flex items-center space-x-1 p-1">
                 {navLinks.map((link) => {
-                  const isLinkActive = (isHomePage && activeSection === link.id) || (!isHomePage && link.to === '/categories' && location.pathname.startsWith('/category')) || (!isHomePage && location.pathname === link.to);
+                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (!isHomePage && location.pathname === link.to);
 
                   return (
-                    <NavLink
+                    <Link
                       key={link.to}
                       to={link.to}
                       className={
@@ -95,7 +96,7 @@ const Header: React.FC = () => {
                       }
                     >
                       {link.text}
-                    </NavLink>
+                    </Link>
                   )
                 })}
               </div>
@@ -113,7 +114,7 @@ const Header: React.FC = () => {
             </Link>
             <div className="md:hidden">
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`transition-colors duration-300 ${showSolidHeader ? 'text-primary-blue' : 'text-off-white'}`}>
-                {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+                {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
               </button>
             </div>
           </div>
@@ -121,21 +122,28 @@ const Header: React.FC = () => {
       </div>
       
       {isMenuOpen && (
-        <div className="md:hidden bg-primary-blue/95 backdrop-blur-lg">
-          <nav className="flex flex-col items-center space-y-2 py-4">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsMenuOpen(false)}
-                className={({ isActive }) =>
-                  `px-6 py-3 rounded-full text-lg transition-colors duration-300 w-full text-center ${isActive ? 'bg-off-white text-primary-blue' : 'text-off-white'}`
-                }
-              >
-                {link.text}
-              </NavLink>
-            ))}
-          </nav>
+        <div className="md:hidden bg-off-white shadow-lg border-t border-gray-200">
+          <div className="px-2 py-3">
+            <nav className="flex flex-col space-y-1">
+              {navLinks.map((link) => {
+                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (!isHomePage && location.pathname === link.to);
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`block px-3 py-2 rounded-md text-base transition-colors ${
+                      isLinkActive
+                        ? 'font-semibold text-primary-blue bg-blue-50'
+                        : 'font-medium text-gray-700 hover:text-primary-blue hover:bg-gray-100'
+                    }`}
+                  >
+                    {link.text}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
         </div>
       )}
     </header>
