@@ -125,8 +125,8 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      <div className={`md:hidden bg-off-white/95 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-24' : 'max-h-0'}`}>
-        <nav className="flex justify-center items-center h-24">
+      <div className={`md:hidden bg-off-white/95 backdrop-blur-sm shadow-md overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-20' : 'max-h-0'}`}>
+        <nav className="flex justify-center items-center py-4">
             <div className="flex items-center space-x-1 p-1 bg-black/5 rounded-full">
               {navLinks.map((link) => {
                 const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
