@@ -9,15 +9,20 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
-    <Link to={`/category/${category.id}`} className="group block text-center transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 hover:shadow-xl rounded-lg">
-      <div className="overflow-hidden aspect-w-3 aspect-h-2 rounded-lg">
+    <Link 
+      to={`/category/${category.id}`} 
+      className="group block overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 hover:shadow-xl"
+    >
+      <div className="aspect-w-3 aspect-h-2">
         <img 
           src={category.image} 
           alt={category.name} 
-          className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
+          className="w-full h-full object-cover"
         />
       </div>
-      <h3 className="mt-4 text-xl font-display font-bold text-primary-blue">{category.name}</h3>
+      <div className="flex h-20 items-center justify-center p-4 text-center">
+        <h3 className="text-xl font-display font-bold text-primary-blue">{category.name}</h3>
+      </div>
     </Link>
   );
 };

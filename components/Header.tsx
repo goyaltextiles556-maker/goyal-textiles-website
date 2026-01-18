@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
@@ -32,8 +31,7 @@ const Header: React.FC = () => {
       return;
     }
     const handleLogoFade = () => {
-      const scrollY = window.scrollY;
-      const progress = Math.min(1, scrollY / ANIMATION_END_SCROLL);
+      const progress = Math.min(1, window.scrollY / ANIMATION_END_SCROLL);
       setLogoOpacity(progress);
     };
     handleLogoFade();
@@ -70,81 +68,135 @@ const Header: React.FC = () => {
   const isCategoriesPage = location.pathname.startsWith('/category');
 
   return (
-    <header className={`fixed w-full top-0 z-40 transition-all duration-300 ${showSolidHeader ? 'bg-off-white/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
+    <header
+      className={`fixed top-0 w-full z-40 transition-all duration-300 ${
+        showSolidHeader
+          ? 'bg-off-white/95 backdrop-blur-sm shadow-md'
+          : 'bg-transparent'
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
+          {/* Logo */}
           <div className="flex-1">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               onClick={(e) => handleNavClick(e, '/')}
-              className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-opacity duration-100 whitespace-nowrap"
-              style={{ opacity: isHomePage ? logoOpacity : 1, textShadow: (isHomePage && logoOpacity > 0.9) || !isHomePage ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none' }}
-              aria-hidden={isHomePage && logoOpacity < 1}
+              className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue whitespace-nowrap"
+              style={{
+                opacity: isHomePage ? logoOpacity : 1,
+                textShadow:
+                  (isHomePage && logoOpacity > 0.9) || !isHomePage
+                    ? '0 1px 3px rgba(0,0,0,0.1)'
+                    : 'none',
+              }}
             >
               GOYAL TEXTILES
             </Link>
           </div>
-          
+
+          {/* Desktop Nav */}
           <nav className="hidden md:block">
-            <div className={`transition-colors duration-300 rounded-full ${showSolidHeader ? 'bg-black/5' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
+            <div
+              className={`rounded-full transition-colors duration-300 ${
+                showSolidHeader
+                  ? 'bg-black/5'
+                  : 'bg-primary-blue/20 backdrop-blur-md'
+              }`}
+            >
               <div className="flex items-center space-x-1 p-1">
                 {navLinks.map((link) => {
-                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
+                  const isActive =
+                    (isHomePage && activeSection === link.id) ||
+                    (link.id === 'categories' && isCategoriesPage);
+
                   return (
                     <Link
                       key={link.to}
                       to={link.to}
                       onClick={(e) => handleNavClick(e, link.to)}
-                      className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 block ${
-                        isLinkActive ? 'bg-off-white text-primary-blue shadow-sm' : showSolidHeader ? 'text-primary-blue hover:bg-black/10' : 'text-off-white hover:bg-off-white/20'
+                      className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                        isActive
+                          ? 'bg-off-white text-primary-blue shadow-sm'
+                          : showSolidHeader
+                          ? 'text-primary-blue hover:bg-black/10'
+                          : 'text-off-white hover:bg-off-white/20'
                       }`}
                     >
                       {link.text}
                     </Link>
-                  )
+                  );
                 })}
               </div>
             </div>
           </nav>
 
-          <div className="flex-1 flex items-center justify-end space-x-4">
-            <Link to="/cart" className={`relative transition-colors duration-300 ${showSolidHeader ? 'text-primary-blue hover:text-blue-800' : 'text-off-white hover:text-white'}`}>
-              <FiShoppingCart size={24} />
+          {/* Right Actions */}
+          <div className="flex-1 flex items-center justify-end space-x-2">
+            {/* Cart */}
+            <Link
+              to="/cart"
+              className={`relative flex items-center justify-center w-10 h-10 ${
+                showSolidHeader
+                  ? 'text-primary-blue'
+                  : 'text-off-white'
+              }`}
+            >
+              <FiShoppingCart size={22} />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary-blue text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary-blue text-white text-xs h-5 w-5 rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
             </Link>
-            <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`transition-colors duration-300 ${showSolidHeader ? 'text-primary-blue' : 'text-off-white'}`}>
-                {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-              </button>
-            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`md:hidden flex items-center justify-center w-10 h-10 ${
+                showSolidHeader
+                  ? 'text-primary-blue'
+                  : 'text-off-white'
+              }`}
+            >
+              {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+            </button>
           </div>
         </div>
       </div>
-      
-      <div className={`md:hidden bg-off-white/95 backdrop-blur-sm shadow-md overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-20' : 'max-h-0'}`}>
-        <nav className="flex justify-center items-center py-4">
-            <div className="flex items-center space-x-1 p-1 bg-black/5 rounded-full">
-              {navLinks.map((link) => {
-                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
-                return (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={(e) => handleNavClick(e, link.to)}
-                    className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 block ${
-                      isLinkActive ? 'bg-off-white text-primary-blue shadow-sm' : 'text-primary-blue hover:bg-black/10'
-                    }`}
-                  >
-                    {link.text}
-                  </Link>
-                );
-              })}
-            </div>
-        </nav>
+
+      {/* Mobile Nav – anchored, not hanging */}
+      <div
+        className={`md:hidden absolute left-0 right-0 top-20 flex justify-center transition-all duration-300 ${
+          isMenuOpen
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-2 pointer-events-none'
+        }`}
+      >
+        <div className="bg-off-white/95 backdrop-blur-sm shadow-md rounded-full px-2 py-1">
+          <div className="flex items-center space-x-1">
+            {navLinks.map((link) => {
+              const isActive =
+                (isHomePage && activeSection === link.id) ||
+                (link.id === 'categories' && isCategoriesPage);
+
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={(e) => handleNavClick(e, link.to)}
+                  className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'bg-off-white text-primary-blue shadow-sm'
+                      : 'text-primary-blue hover:bg-black/10'
+                  }`}
+                >
+                  {link.text}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </header>
   );
