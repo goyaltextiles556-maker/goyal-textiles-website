@@ -77,21 +77,71 @@ export const products: Product[] = [
     intendedUse: 'Festive wear, wedding kurtas, sherwanis.',
     materialDetails: 'Silk Blend. Dry clean recommended.',
   },
+
+
+
+
   // Gifting Sets
   {
-    id: 'g001',
-    name: 'Premium Suiting & Shirting Combo',
-    brand: 'Vimal',
-    description: 'A classic combination pack of suiting and shirting fabric.',
-    longDescription: 'An ideal gift for any occasion, this combo set from Vimal includes premium quality fabric for a full suit and a complementary shirt. Packaged beautifully, it represents a gesture of timeless style and elegance.',
-    price: 3500,
-    originalPrice: 4200,
-    unit: 'set',
-    category: 'gifting',
-    images: ['https://picsum.photos/seed/g001a/800/800', 'https://picsum.photos/seed/g001b/800/800'],
-    intendedUse: 'Gifting for weddings, festivals, and corporate events.',
-    materialDetails: 'Suiting: Poly-Viscose. Shirting: 100% Cotton.',
-  },
+  id: 'g001',
+  name: 'Pant & Shirt with Handkerchief',
+  brand: 'Siyaram',
+  description:
+    'Premium pant–shirt fabric set with smooth finish. Colours may vary.',
+  longDescription:
+    'This is a pant and shirt fabric set made for everyday formal wear and special occasions. The fabric feels smooth and comfortable and is suitable for regular use. It comes in a ready gift box, making it a good choice for festivals, functions, and formal gifting. The set offers reliable quality and a clean, classic look. Colours and designs may vary from the image shown.',
+  price: 1700,
+  originalPrice: 2000,
+  unit: 'set',
+  category: 'gifting',
+  images: [
+    '/images/gifting/pantshirt_withhanky_gift_siyarams_2_exp.webp',
+    '/images/gifting/pantshirt_withhanky_gift_siyarams_1_exp.webp',
+  ],
+  intendedUse: 'Formal wear, office wear, festive and formal gifting',
+  materialDetails: 'Cotton',
+},
+
+{
+  id: 'g002',
+  name: 'Pant & Shirt Fabric Gift Set',
+  brand: 'Vimal',
+  description:
+    'Pant–shirt fabric set with comfortable finish. Colours may vary.',
+  longDescription:
+    'This pant and shirt fabric set is suitable for daily formal wear and simple occasions. The fabric is comfortable and easy to wear, making it appropriate for regular office use. It comes in a ready gift box and can be used for festivals, functions, and formal gifting. The set offers a neat, classic look with dependable quality. Colours and designs may vary from the images shown.',
+  price: 275,
+  originalPrice: 350,
+  unit: 'set',
+  category: 'gifting',
+  images: [
+    '/images/gifting/pantshirt_gift_vimal_2_exp.webp',
+    '/images/gifting/pantshirt_gift_vimal_1_exp.webp',
+  ],
+  intendedUse: 'Formal wear, office wear, gifting',
+  materialDetails: 'Cotton',
+},
+
+{
+  id: 'g003',
+  name: 'Pant & Shirt Fabric Gift Set',
+  brand: 'Siyaram',
+  description:
+    'Pant–shirt fabric set with smooth and comfortable finish. Colours may vary.',
+  longDescription:
+    'This pant and shirt fabric set is suitable for daily formal wear and regular office use. The fabric feels comfortable and easy to wear, giving a clean and classic look. It comes in a ready gift box, making it suitable for festivals, functions, and formal gifting. The set offers dependable quality for everyday use. Colours and designs may vary from the images shown.',
+  price: 300,
+  originalPrice: 400,
+  unit: 'set',
+  category: 'gifting',
+  images: [
+    '/images/gifting/pantshirt_gift_siyarams_2_exp.webp',
+    '/images/gifting/pantshirt_gift_siyarams_1_exp.webp',
+  ],
+  intendedUse: 'Formal wear, office wear, gifting',
+  materialDetails: 'Cotton',
+},
+
   // Pant
   {
     id: 'p001',
