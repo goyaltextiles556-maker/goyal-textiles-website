@@ -275,7 +275,7 @@ export const products: Product[] = [
   ],
   intendedUse: 'Formal wear, office wear, gifting',
   materialDetails: 'Cotton',
-  }
+  },
 
   // Pant
   {
