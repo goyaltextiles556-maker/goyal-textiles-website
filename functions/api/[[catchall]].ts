@@ -14,7 +14,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>();
 
 // Endpoint to create a Razorpay order
-app.post('/api/create-order', async (c) => {
+app.post('/create-order', async (c) => {
   const { amount, cartItems, customerDetails } = await c.req.json();
   
   const razorpay = new Razorpay({
@@ -59,7 +59,7 @@ app.post('/api/create-order', async (c) => {
 });
 
 // Endpoint to verify payment and finalize order
-app.post('/api/verify-payment', async (c) => {
+app.post('/verify-payment', async (c) => {
   const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = await c.req.json();
   
   const body = `${razorpay_order_id}|${razorpay_payment_id}`;
@@ -108,4 +108,5 @@ app.post('/api/verify-payment', async (c) => {
 });
 
 
-export default app;
+export const onRequest = app.fetch;
+
