@@ -1,5 +1,4 @@
 
-
 export interface Product {
   id: string;
   name: string;
@@ -7,18 +6,12 @@ export interface Product {
   description: string;
   longDescription: string;
   price: number;
-  originalPrice?: number; // The price before discount
+  originalPrice?: number;
   unit: 'meter' | 'set';
   category: string;
   images: string[];
   intendedUse: string;
   materialDetails: string;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  image: string;
 }
 
 export interface CartItem {
@@ -27,7 +20,7 @@ export interface CartItem {
 }
 
 export interface Order {
-  _id?: any; // MongoDB ID
+  _id?: any;
   razorpay_order_id?: string;
   razorpay_payment_id?: string;
   amount: number;

@@ -1,14 +1,18 @@
 
 # Dependencies
 /node_modules
+/backend/node_modules
 
-# Vite
+# Vite / Build output
 /dist
+/backend/dist
 .DS_Store
 *.log
 
 # Local secrets
 .dev.vars
+.env
+/backend/.env
 
 # IDE
 .vscode
