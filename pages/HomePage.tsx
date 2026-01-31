@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { categories } from '../data/products';
 import CategoryCard from '../components/CategoryCard';
 import { useScrollSpy } from '../context/ScrollSpyContext';
@@ -67,14 +68,14 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <Link
+      <ReactRouterDOM.Link
         to="/"
         style={titleStyle}
         className="z-50 text-5xl sm:text-6xl md:text-8xl font-bold uppercase font-display text-center sm:whitespace-nowrap text-off-white"
         aria-hidden={titleStyle.opacity === 0}
       >
         GOYAL TEXTILES
-      </Link>
+      </ReactRouterDOM.Link>
 
       <section className="relative h-[90vh] text-off-white overflow-hidden">
         <div className="absolute inset-0 w-full h-full -z-10">

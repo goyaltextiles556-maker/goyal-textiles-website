@@ -65,6 +65,11 @@ const Footer: React.FC = () => {
                   Shipping & Cancellation Policy
                 </ReactRouterDOM.Link>
               </li>
+              <li>
+                <ReactRouterDOM.Link to="/faq" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                  FAQ
+                </ReactRouterDOM.Link>
+              </li>
             </ul>
           </div>
         </div>

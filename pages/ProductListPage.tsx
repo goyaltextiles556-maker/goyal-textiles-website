@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { products, categories } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
 const ProductListPage: React.FC = () => {
-  const { categoryId } = useParams<{ categoryId: string }>();
+  const { categoryId } = ReactRouterDOM.useParams<{ categoryId: string }>();
   
   const category = categories.find(c => c.id === categoryId);
   const filteredProducts = products.filter(p => p.category === categoryId);
@@ -14,13 +15,13 @@ const ProductListPage: React.FC = () => {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold">Category not found</h2>
-        <Link to="/categories" className="text-primary-blue hover:underline mt-4 inline-block">
+        <ReactRouterDOM.Link to="/categories" className="text-primary-blue hover:underline mt-4 inline-block">
           Back to Categories
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     );
   }
-
+  
   return (
     <div>
       <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">{category.name}</h1>

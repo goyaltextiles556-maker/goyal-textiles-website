@@ -1,13 +1,14 @@
 
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { products } from '../data/products';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Button from '../components/Button';
 import { useCart } from '../hooks/useCart';
 
 const ProductDetailPage: React.FC = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const { productId } = ReactRouterDOM.useParams<{ productId: string }>();
   const product = products.find(p => p.id === productId);
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -18,7 +19,7 @@ const ProductDetailPage: React.FC = () => {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold">Product not found</h2>
-        <Link to="/" className="text-primary-blue hover:underline mt-4 inline-block">Back to Home</Link>
+        <ReactRouterDOM.Link to="/" className="text-primary-blue hover:underline mt-4 inline-block">Back to Home</ReactRouterDOM.Link>
       </div>
     );
   }
@@ -36,9 +37,12 @@ const ProductDetailPage: React.FC = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + product.images.length) % product.images.length);
   };
   
+  const displayUnit = product.unit === 'meter' ? 'meter' : 'set';
+  
   const handleAddToCart = () => {
     addToCart(product, quantity);
-    alert(`${quantity} ${product.unit}(s) of ${product.name} added to cart.`);
+    const alertMessage = `${quantity} ${displayUnit}(s) of ${product.name} added to cart.`;
+    alert(alertMessage);
   };
 
   return (
@@ -69,7 +73,7 @@ const ProductDetailPage: React.FC = () => {
           <div className="mt-4">
             <p className="text-3xl font-semibold text-gray-900">
               ₹{product.price.toLocaleString()}
-              <span className="text-lg font-normal text-gray-500"> / {product.unit}</span>
+              <span className="text-lg font-normal text-gray-500"> / {displayUnit}</span>
             </p>
             {hasDiscount && (
               <div className="flex items-center space-x-3 text-md mt-1">
@@ -96,7 +100,7 @@ const ProductDetailPage: React.FC = () => {
           </div>
           
           <div className="mt-8 flex items-center space-x-4">
-            <label htmlFor="quantity" className="font-medium">Quantity ({product.unit}s):</label>
+            <label htmlFor="quantity" className="font-medium">Quantity ({displayUnit}s):</label>
             <input 
               type="number"
               id="quantity"

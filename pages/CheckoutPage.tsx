@@ -1,16 +1,21 @@
+// FIX: Manually define types for import.meta.env since vite/client types could not be resolved.
+declare global {
+  interface ImportMeta {
+    readonly env: {
+      readonly VITE_API_BASE_URL: string;
+    }
+  }
+}
 
 import React, { useState } from 'react';
 import { useCart } from '../hooks/useCart';
-import { useNavigate } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import Button from '../components/Button';
-import type { Order } from '../types';
-
-// This makes the Razorpay object available from the script loaded in index.html
-declare const Razorpay: any;
 
 const CheckoutPage: React.FC = () => {
   const { cartItems, clearCart } = useCart();
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
@@ -25,6 +30,10 @@ const CheckoutPage: React.FC = () => {
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (cartItems.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
     setIsProcessing(true);
 
     const form = e.target as HTMLFormElement;
@@ -35,74 +44,48 @@ const CheckoutPage: React.FC = () => {
       phone: formData.get('phone') as string,
       address: formData.get('address') as string,
     };
+
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    if (!apiBaseUrl) {
+        alert('API URL is not configured. Please contact support.');
+        setIsProcessing(false);
+        return;
+    }
     
     try {
-      // Step 1: Create an order on our backend
-      const orderResponse = await fetch('/api/create-order', {
+      const response = await fetch(`${apiBaseUrl}/api/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: total,
           cartItems,
-          customerDetails
+          customerDetails,
         }),
       });
 
-      if (!orderResponse.ok) {
-        throw new Error('Failed to create order.');
+      if (!response.ok) {
+        let errorMessage = 'Failed to place order. Please try again.';
+        try {
+            const errorData = await response.json();
+            if (errorData && errorData.error) {
+                errorMessage = `Error: ${errorData.error}`;
+            } else {
+                 errorMessage = `Failed to place order. Server responded with status: ${response.status}`;
+            }
+        } catch (e) {
+            // The response was not JSON. This is likely a network or CORS issue.
+            errorMessage = `An error occurred during checkout. Please ensure the backend server is running and accessible.`;
+        }
+        throw new Error(errorMessage);
       }
 
-      const orderData = await orderResponse.json();
-      
-      // Step 2: Open Razorpay Checkout
-      const options = {
-        key: orderData.keyId,
-        amount: orderData.amount,
-        currency: 'INR',
-        name: 'GOYAL TEXTILES',
-        description: 'Fabric Purchase',
-        order_id: orderData.id,
-        handler: async function (response: any) {
-          // Step 3: Verify the payment on our backend
-          const verificationResponse = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          });
-          
-          if (verificationResponse.ok) {
-            setIsOrderPlaced(true);
-            clearCart();
-          } else {
-            alert('Payment verification failed. Please contact support.');
-            setIsProcessing(false);
-          }
-        },
-        prefill: {
-          name: customerDetails.name,
-          email: customerDetails.email,
-          contact: customerDetails.phone,
-        },
-        theme: {
-          color: '#2A4365',
-        },
-        modal: {
-          ondismiss: function() {
-            setIsProcessing(false);
-          }
-        }
-      };
-
-      const rzp = new Razorpay(options);
-      rzp.open();
+      // Order was successful
+      setIsOrderPlaced(true);
+      clearCart();
 
     } catch (error) {
       console.error('Checkout error:', error);
-      alert('An error occurred during checkout. Please try again.');
+      alert(error instanceof Error ? error.message : 'An unknown error occurred.');
       setIsProcessing(false);
     }
   };
@@ -112,7 +95,7 @@ const CheckoutPage: React.FC = () => {
         <div className="text-center py-20 max-w-2xl mx-auto">
             <h1 className="text-4xl font-display font-bold text-primary-blue mb-4">Thank You!</h1>
             <p className="text-lg text-gray-700">Your order has been placed successfully.</p>
-            <p className="text-gray-600 mt-2">A confirmation has been stored.</p>
+            <p className="text-gray-600 mt-2">We will contact you shortly regarding payment and shipping.</p>
             <div className="mt-8">
                 <Button onClick={() => navigate('/')}>Continue Shopping</Button>
             </div>
@@ -123,9 +106,9 @@ const CheckoutPage: React.FC = () => {
   if (cartItems.length === 0 && !isOrderPlaced) {
       return (
           <div className="text-center py-20">
-              <h1 className="text-2xl font-semibold">Your cart is empty.</h1>
+              <h1 className="text-2xl font-semibold">Your Cart is Empty</h1>
               <p className="mt-4 text-gray-600">You can't proceed to checkout without items.</p>
-              <Button className="mt-6" onClick={() => navigate('/categories')}>Browse Products</Button>
+              <Button className="mt-6" onClick={() => navigate('/')}>Browse Fabrics</Button>
           </div>
       );
   }
@@ -181,7 +164,7 @@ const CheckoutPage: React.FC = () => {
           </div>
           <div className="mt-8">
             <Button type="submit" disabled={isProcessing}>
-              {isProcessing ? 'Processing...' : 'Place Order'}
+              {isProcessing ? 'Placing Order...' : 'Place Order'}
             </Button>
           </div>
         </div>

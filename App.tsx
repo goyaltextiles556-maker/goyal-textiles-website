@@ -18,6 +18,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import ReturnsPolicyPage from './pages/ReturnsPolicyPage';
 import ShippingPolicyPage from './pages/ShippingPolicyPage';
+import FAQPage from './pages/FAQPage';
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
                 <ReactRouterDOM.Route path="/terms-of-service" element={<PageLayout><TermsOfServicePage /></PageLayout>} />
                 <ReactRouterDOM.Route path="/returns-policy" element={<PageLayout><ReturnsPolicyPage /></PageLayout>} />
                 <ReactRouterDOM.Route path="/shipping-policy" element={<PageLayout><ShippingPolicyPage /></PageLayout>} />
+                <ReactRouterDOM.Route path="/faq" element={<PageLayout><FAQPage /></PageLayout>} />
               </ReactRouterDOM.Routes>
             </main>
             <Footer />

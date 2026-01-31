@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import type { Category } from '../types';
 
 interface CategoryCardProps {
@@ -9,9 +10,9 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
-    <Link 
+    <ReactRouterDOM.Link 
       to={`/category/${category.id}`} 
-      className="group block overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 ease-in-out hover:scale-105 active:scale-100 hover:shadow-xl"
+      className="group block overflow-hidden rounded-lg bg-white shadow-md transition-transform,transition-shadow duration-300 ease-out hover:-translate-y-1.5 active:scale-[0.98] active:shadow-lg hover:shadow-xl"
     >
       <div className="aspect-w-3 aspect-h-2">
         <img 
@@ -21,9 +22,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
         />
       </div>
       <div className="flex h-20 items-center justify-center p-4 text-center">
-        <h3 className="text-xl font-display font-bold text-primary-blue">{category.name}</h3>
+        <h3 className="text-xl font-display font-bold text-primary-blue">
+          {category.name}
+        </h3>
       </div>
-    </Link>
+    </ReactRouterDOM.Link>
   );
 };
 

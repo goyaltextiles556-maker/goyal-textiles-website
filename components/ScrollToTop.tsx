@@ -1,9 +1,10 @@
 
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname } = ReactRouterDOM.useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
