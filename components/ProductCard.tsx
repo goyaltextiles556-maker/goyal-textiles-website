@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 // FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
 import * as ReactRouterDOM from 'react-router-dom';
 import type { Product } from '../types';
@@ -12,6 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(product, 1);
@@ -25,14 +26,41 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const displayUnit = product.unit === 'meter' ? 'meter' : 'set';
 
   return (
-    <div className="bg-white border border-gray-200/80 p-4 flex flex-col h-full rounded-lg shadow-sm transition-transform,transition-shadow duration-300 ease-out hover:shadow-lg hover:-translate-y-1.5 active:scale-[0.98]">
+    <div 
+      className="bg-white border border-gray-200/80 p-4 flex flex-col h-full rounded-lg shadow-sm transition-transform,transition-shadow duration-300 ease-out hover:shadow-lg hover:-translate-y-1.5 active:scale-[0.98]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <ReactRouterDOM.Link to={`/product/${product.id}`} className="block mb-4">
-        <div className="aspect-w-1 aspect-h-1 bg-gray-100 overflow-hidden rounded-md">
+        <div className="relative w-full aspect-square bg-gray-100 overflow-hidden rounded-md">
+          {/* First Image (Visible by default) */}
           <img 
             src={product.images[0]} 
             alt={product.name} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className={`
+                absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-out
+                ${isHovered && product.images.length > 1 ? 'opacity-0' : 'opacity-100'}
+            `}
+            onError={(e) => {
+              console.error(`Failed to load image: ${product.images[0]}`);
+              (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect fill="%23e5e7eb" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="16" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
+            }}
           />
+          {/* Second Image (Visible on hover) */}
+          {product.images.length > 1 && (
+            <img 
+                src={product.images[1]} 
+                alt={`${product.name} alternate view`} 
+                className={`
+                    absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out
+                    ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}
+                `}
+                onError={(e) => {
+                  console.error(`Failed to load image: ${product.images[1]}`);
+                  (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect fill="%23e5e7eb" width="400" height="400"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="16" fill="%23999"%3EImage not found%3C/text%3E%3C/svg%3E';
+                }}
+            />
+          )}
         </div>
       </ReactRouterDOM.Link>
       <div className="flex-grow flex flex-col">

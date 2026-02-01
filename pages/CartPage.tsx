@@ -37,7 +37,7 @@ const CartPage: React.FC = () => {
               <div className="flex-grow">
                 <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-medium hover:text-primary-blue">{item.product.name}</ReactRouterDOM.Link>
                 <p className="text-sm text-gray-500">₹{item.product.price.toLocaleString()} / {displayUnit}</p>
-                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:underline mt-1">Remove</button>
+                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:underline mt-1 transition-colors duration-300 ease-out hover:text-red-800">Remove</button>
               </div>
               <div className="flex items-center space-x-2">
                 <input 

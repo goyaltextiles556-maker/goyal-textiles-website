@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
                 <li key={category.id}>
                   <ReactRouterDOM.Link 
                     to={`/category/${category.id}`} 
-                    className="text-sm text-gray-200 hover:text-white hover:underline transition-colors"
+                    className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out"
                   >
                     {category.name}
                   </ReactRouterDOM.Link>
@@ -46,27 +46,27 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <ReactRouterDOM.Link to="/privacy-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                <ReactRouterDOM.Link to="/privacy-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out">
                   Privacy Policy
                 </ReactRouterDOM.Link>
               </li>
               <li>
-                <ReactRouterDOM.Link to="/terms-of-service" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                <ReactRouterDOM.Link to="/terms-of-service" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out">
                   Terms of Service
                 </ReactRouterDOM.Link>
               </li>
               <li>
-                <ReactRouterDOM.Link to="/returns-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                <ReactRouterDOM.Link to="/returns-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out">
                   Returns, Refunds & Exchange Policy
                 </ReactRouterDOM.Link>
               </li>
               <li>
-                <ReactRouterDOM.Link to="/shipping-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                <ReactRouterDOM.Link to="/shipping-policy" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out">
                   Shipping & Cancellation Policy
                 </ReactRouterDOM.Link>
               </li>
               <li>
-                <ReactRouterDOM.Link to="/faq" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors">
+                <ReactRouterDOM.Link to="/faq" className="text-sm text-gray-200 hover:text-white hover:underline transition-colors duration-300 ease-out">
                   FAQ
                 </ReactRouterDOM.Link>
               </li>

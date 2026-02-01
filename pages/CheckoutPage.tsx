@@ -1,3 +1,11 @@
+
+// FIX: Manually define types for import.meta.env since vite/client types could not be resolved.
+declare global {
+  interface ImportMetaEnv {
+    readonly VITE_API_BASE_URL: string;
+  }
+}
+
 import React, { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 // FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
@@ -114,19 +122,19 @@ const CheckoutPage: React.FC = () => {
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
-              <input type="text" id="name" name="name" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue"/>
+              <input type="text" id="name" name="name" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue transition-all duration-300 ease-out"/>
             </div>
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-              <input type="text" id="address" name="address" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue"/>
+              <input type="text" id="address" name="address" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue transition-all duration-300 ease-out"/>
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
-              <input type="email" id="email" name="email" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue"/>
+              <input type="email" id="email" name="email" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue transition-all duration-300 ease-out"/>
             </div>
              <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
-              <input type="tel" id="phone" name="phone" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue"/>
+              <input type="tel" id="phone" name="phone" required className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-blue focus:border-primary-blue transition-all duration-300 ease-out"/>
             </div>
           </div>
         </div>

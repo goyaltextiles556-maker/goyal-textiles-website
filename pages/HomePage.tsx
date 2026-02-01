@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
       <section className="relative h-[90vh] text-off-white overflow-hidden">
         <div className="absolute inset-0 w-full h-full -z-10">
           <img 
-            src="https://picsum.photos/seed/hero-fabric/1600/1200" 
+            src="/images/homepage/homepage_hero.webp" 
             alt="A collection of fine textiles"
             aria-hidden="true"
             className="w-full h-full object-cover"
