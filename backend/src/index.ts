@@ -1,4 +1,7 @@
-
+import dns from "dns";
+// Set explicit DNS servers to bypass local DNS issues
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
+dns.setDefaultResultOrder("ipv4first");
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -15,7 +18,9 @@ const app = new Hono();
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 app.use('/api/*', cors({
   origin: frontendUrl,
-  allowMethods: ['POST', 'GET', 'OPTIONS'],
+  allowMethods: ['POST', 'GET', 'OPTIONS', 'HEAD', 'PUT', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 
 // API route to create an order
