@@ -1,12 +1,3 @@
-// FIX: Manually define types for import.meta.env since vite/client types could not be resolved.
-declare global {
-  interface ImportMeta {
-    readonly env: {
-      readonly VITE_API_BASE_URL: string;
-    }
-  }
-}
-
 import React, { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 // FIX: Use namespace import for react-router-dom to fix "no exported member" errors.

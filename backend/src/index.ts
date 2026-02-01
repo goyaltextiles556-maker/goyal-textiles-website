@@ -14,13 +14,11 @@ dotenv.config();
 
 const app = new Hono();
 
-// Configure CORS to allow requests from the frontend
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-app.use('/api/*', cors({
-  origin: frontendUrl,
+// Configure CORS to allow requests from the frontend - MUST be before routes
+app.use('*', cors({
+  origin: '*',
   allowMethods: ['POST', 'GET', 'OPTIONS', 'HEAD', 'PUT', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
 }));
 
 // API route to create an order
