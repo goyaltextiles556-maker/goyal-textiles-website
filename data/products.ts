@@ -5,7 +5,7 @@ export const categories: Category[] = [
   { id: 'shirting', name: 'Shirting Fabric', image: 'https://picsum.photos/seed/shirting/600/400' },
   { id: 'kurta', name: 'Kurta Fabric', image: 'https://picsum.photos/seed/kurta/600/400' },
   { id: 'pant', name: 'Pant Fabric', image: 'https://picsum.photos/seed/pant/600/400' },
-  { id: 'gifting', name: 'Gifting Sets', image: 'https://picsum.photos/seed/gifting/600/400' },
+  { id: 'gifting', name: 'Gifting Sets', image: '/images/homepage/gifting_categorycard.webp' },
 ];
 
 export const products: Product[] = [
