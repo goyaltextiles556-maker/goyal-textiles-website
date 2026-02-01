@@ -15,9 +15,9 @@ const Footer: React.FC = () => {
               About Us
             </h3>
             <p className="font-bold text-white">GOYAL TEXTILES</p>
-            <p className="text-sm text-gray-200 mt-2">123 Fabric Lane, Textile Market</p>
-            <p className="text-sm text-gray-200">New Delhi, India</p>
-            <p className="mt-2 text-sm text-gray-200">Mobile: +91 98765 43210</p>
+            <p className="text-sm text-gray-200 mt-2">556, Katra Neel, Chandni Chowk</p>
+            <p className="text-sm text-gray-200">Delhi-110006, India</p>
+            <p className="mt-2 text-sm text-gray-200">Mobile: +91 98107 77391 </p>
           </div>
 
           {/* Categories Section */}
