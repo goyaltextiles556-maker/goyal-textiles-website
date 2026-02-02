@@ -3,7 +3,7 @@ import React from 'react';
 const PrivacyPolicyPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">
         Privacy Policy
       </h1>
 
@@ -21,7 +21,7 @@ const PrivacyPolicyPage: React.FC = () => {
           Personal Data Protection Act, 2023.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           1. Information We Collect
         </h2>
         <p>
@@ -39,7 +39,7 @@ const PrivacyPolicyPage: React.FC = () => {
           </li>
         </ul>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           2. Purpose of Collection and Use
         </h2>
         <p>
@@ -55,7 +55,7 @@ const PrivacyPolicyPage: React.FC = () => {
           <li>Basic website analytics and performance improvement</li>
         </ul>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           3. Lawful Basis for Processing
         </h2>
         <p>
@@ -65,7 +65,7 @@ const PrivacyPolicyPage: React.FC = () => {
           prevention, as permitted under applicable law.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           4. Sharing of Personal Data
         </h2>
         <p>
@@ -81,7 +81,7 @@ const PrivacyPolicyPage: React.FC = () => {
           safeguards.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           5. Data Storage and Security
         </h2>
         <p>
@@ -96,7 +96,7 @@ const PrivacyPolicyPage: React.FC = () => {
           completely secure, and absolute security cannot be guaranteed.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           6. Data Retention
         </h2>
         <p>
@@ -106,7 +106,7 @@ const PrivacyPolicyPage: React.FC = () => {
           deleted or anonymized once it is no longer required.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           7. Cookies and Similar Technologies
         </h2>
         <p>
@@ -116,7 +116,7 @@ const PrivacyPolicyPage: React.FC = () => {
           so may affect certain website features.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           8. Children’s Data
         </h2>
         <p>
@@ -125,7 +125,7 @@ const PrivacyPolicyPage: React.FC = () => {
           identified, it will be deleted as soon as reasonably practicable.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           9. Your Rights and Grievance Redressal
         </h2>
         <p>
@@ -147,7 +147,7 @@ const PrivacyPolicyPage: React.FC = () => {
           subject to legal and contractual requirements.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           10. Changes to This Privacy Policy
         </h2>
         <p>
@@ -156,7 +156,7 @@ const PrivacyPolicyPage: React.FC = () => {
           of the website constitutes acceptance of the updated policy.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           11. Governing Law
         </h2>
         <p>
@@ -170,3 +170,4 @@ const PrivacyPolicyPage: React.FC = () => {
 };
 
 export default PrivacyPolicyPage;
+

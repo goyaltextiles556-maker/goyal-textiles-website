@@ -3,7 +3,7 @@ import React from 'react';
 const ShippingPolicyPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">
         Shipping & Cancellation Policy
       </h1>
 
@@ -12,7 +12,7 @@ const ShippingPolicyPage: React.FC = () => {
           Last Updated: 29 January 2026
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           1. Order Processing & Dispatch
         </h2>
         <p>
@@ -31,7 +31,7 @@ const ShippingPolicyPage: React.FC = () => {
           force majeure events.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           2. Shipping Rates & Delivery Estimates
         </h2>
         <p>
@@ -50,7 +50,7 @@ const ShippingPolicyPage: React.FC = () => {
           delay is directly attributable to us.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           3. Delivery, Risk & Responsibility
         </h2>
         <p>
@@ -72,7 +72,7 @@ const ShippingPolicyPage: React.FC = () => {
           customer.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           4. Failed Delivery, Refusal & Return to Origin
         </h2>
         <p>
@@ -92,7 +92,7 @@ const ShippingPolicyPage: React.FC = () => {
           attributable to us and reported in accordance with our Returns Policy.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           5. Order Cancellation
         </h2>
         <p>
@@ -111,7 +111,7 @@ const ShippingPolicyPage: React.FC = () => {
           permitted by law.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           6. Governing Law
         </h2>
         <p>
@@ -124,3 +124,4 @@ const ShippingPolicyPage: React.FC = () => {
 };
 
 export default ShippingPolicyPage;
+

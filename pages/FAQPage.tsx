@@ -50,7 +50,7 @@ const FAQPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">
         Frequently Asked Questions
       </h1>
 

@@ -3,7 +3,7 @@ import React from 'react';
 const TermsOfServicePage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">
         Terms of Service
       </h1>
 
@@ -12,7 +12,7 @@ const TermsOfServicePage: React.FC = () => {
           Last Updated: 29 January 2026
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           1. Agreement to Terms
         </h2>
         <p>
@@ -29,7 +29,7 @@ const TermsOfServicePage: React.FC = () => {
           use the website or services.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           2. Eligibility & Use of Website
         </h2>
         <p>
@@ -44,7 +44,7 @@ const TermsOfServicePage: React.FC = () => {
           infringement of intellectual property rights.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           3. Products & Pricing
         </h2>
         <p>
@@ -63,7 +63,7 @@ const TermsOfServicePage: React.FC = () => {
           any time without liability.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           4. Orders, Payment & Billing
         </h2>
         <p>
@@ -86,7 +86,7 @@ const TermsOfServicePage: React.FC = () => {
           method.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           5. Shipping, Returns & Cancellations
         </h2>
         <p>
@@ -100,7 +100,7 @@ const TermsOfServicePage: React.FC = () => {
           Policy or required under applicable law.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           6. Disclaimer of Warranties
         </h2>
         <p>
@@ -114,7 +114,7 @@ const TermsOfServicePage: React.FC = () => {
           excluded under applicable Indian law.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           7. Limitation of Liability
         </h2>
         <p>
@@ -131,7 +131,7 @@ const TermsOfServicePage: React.FC = () => {
           negligence, or willful misconduct.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           8. Indemnification
         </h2>
         <p>
@@ -140,7 +140,7 @@ const TermsOfServicePage: React.FC = () => {
           your breach of these Terms or violation of applicable law.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           9. Termination
         </h2>
         <p>
@@ -150,7 +150,7 @@ const TermsOfServicePage: React.FC = () => {
           will be provided.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           10. Governing Law & Jurisdiction
         </h2>
         <p>
@@ -160,7 +160,7 @@ const TermsOfServicePage: React.FC = () => {
           under these Terms.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           11. Contact Information
         </h2>
         <p>
@@ -179,3 +179,4 @@ const TermsOfServicePage: React.FC = () => {
 };
 
 export default TermsOfServicePage;
+

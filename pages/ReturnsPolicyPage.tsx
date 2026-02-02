@@ -3,7 +3,7 @@ import React from 'react';
 const ReturnsPolicyPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">
         Returns, Refunds & Exchange Policy
       </h1>
 
@@ -19,7 +19,7 @@ const ReturnsPolicyPage: React.FC = () => {
           cases</strong>, as set out below.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           1. Eligibility
         </h2>
 
@@ -39,7 +39,7 @@ const ReturnsPolicyPage: React.FC = () => {
           are eligible.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           2. Mandatory Verification (Very Important)
         </h2>
 
@@ -64,7 +64,7 @@ const ReturnsPolicyPage: React.FC = () => {
           as independent verification may not be possible.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           3. What Is and Is Not Covered
         </h2>
 
@@ -86,7 +86,7 @@ const ReturnsPolicyPage: React.FC = () => {
           </li>
         </ul>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           4. Refunds and Exchanges
         </h2>
 
@@ -101,7 +101,7 @@ const ReturnsPolicyPage: React.FC = () => {
           are subject to availability. If unavailable, a refund may be issued instead.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           5. Return Shipping
         </h2>
 
@@ -116,7 +116,7 @@ const ReturnsPolicyPage: React.FC = () => {
           is strongly recommended.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           6. Review and Governing Law
         </h2>
 
@@ -130,7 +130,7 @@ const ReturnsPolicyPage: React.FC = () => {
           consumer protection laws.
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
+        <h2 className="text-2xl font-display font-bold text-primary-blue pt-2">
           7. Contact
         </h2>
 
@@ -147,3 +147,4 @@ const ReturnsPolicyPage: React.FC = () => {
 };
 
 export default ReturnsPolicyPage;
+
