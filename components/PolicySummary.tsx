@@ -5,29 +5,28 @@ import * as ReactRouterDOM from 'react-router-dom';
 
 const PolicySummary: React.FC = () => {
   return (
-    <div className="mt-8 text-sm text-gray-600 border border-gray-200/80 rounded-lg p-4 bg-white">
-      <div className="mb-4">
-        <h3 className="font-semibold text-gray-800 mb-2">Returns, Refunds & Exchanges</h3>
-        <ul className="list-disc list-inside space-y-1 text-xs">
-          <li>Returns or exchanges are accepted only for defective, damaged, or incorrect items.</li>
-          <li>A clear, uncut opening video of the package is mandatory for verification.</li>
-          <li>Issues must be reported within 48 hours of delivery.</li>
-          <li>Fabric must be unused, unwashed, uncut, and unaltered.</li>
-          <li>Change of mind or subjective dissatisfaction is not eligible.</li>
-          <li>Refunds (if approved) are processed to the original payment method within 5–7 working days after inspection.</li>
-          <li>For full details, please read our <ReactRouterDOM.Link to="/returns-policy" className="font-medium text-primary-blue hover:underline">Returns, Refunds & Exchange Policy</ReactRouterDOM.Link>.</li>
+    <div className="mt-6 text-gray-600 border border-gray-200 rounded-lg p-4 sm:p-6 bg-gray-50">
+      <div className="mb-6 pb-6 border-b border-gray-200">
+        <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Returns, Refunds & Exchanges</h3>
+        <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm">
+          <li className="text-gray-700">Returns or exchanges accepted only for defective, damaged, or incorrect items.</li>
+          <li className="text-gray-700">Clear, uncut opening video required for verification.</li>
+          <li className="text-gray-700">Issues must be reported within 48 hours of delivery.</li>
+          <li className="text-gray-700">Fabric must be unused, unwashed, uncut, and unaltered.</li>
+          <li className="text-gray-700">Change of mind is not eligible.</li>
+          <li className="text-gray-700">Refunds processed within 5–7 working days after inspection.</li>
+          <li>Read our <ReactRouterDOM.Link to="/returns-policy" className="font-medium text-primary-blue hover:underline transition-colors duration-250 ease-out">Returns, Refunds & Exchange Policy</ReactRouterDOM.Link>.</li>
         </ul>
       </div>
       <div>
-        <h3 className="font-semibold text-gray-800 mb-2">Shipping & Cancellation</h3>
-        <ul className="list-disc list-inside space-y-1 text-xs">
-          <li>Orders are processed after successful payment and dispatched within estimated timelines.</li>
-          <li>Delivery timelines are indicative and depend on courier partners and external factors.</li>
-          <li>Shipping charges (if any) are non-refundable.</li>
-          <li>Orders cannot be cancelled once dispatched.</li>
-          <li>Failed or refused deliveries may incur additional shipping charges.</li>
-          <li>Customers are responsible for providing accurate delivery details.</li>
-          <li>For complete information, please read our <ReactRouterDOM.Link to="/shipping-policy" className="font-medium text-primary-blue hover:underline">Shipping & Cancellation Policy</ReactRouterDOM.Link>.</li>
+        <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Shipping & Cancellation</h3>
+        <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm">
+          <li className="text-gray-700">Orders dispatched within estimated timelines after payment.</li>
+          <li className="text-gray-700">Delivery times depend on courier partners and external factors.</li>
+          <li className="text-gray-700">Shipping charges are non-refundable.</li>
+          <li className="text-gray-700">Orders cannot be cancelled once dispatched.</li>
+          <li className="text-gray-700">Provide accurate delivery details to avoid delays.</li>
+          <li>Read our <ReactRouterDOM.Link to="/shipping-policy" className="font-medium text-primary-blue hover:underline transition-colors duration-250 ease-out">Shipping & Cancellation Policy</ReactRouterDOM.Link>.</li>
         </ul>
       </div>
     </div>

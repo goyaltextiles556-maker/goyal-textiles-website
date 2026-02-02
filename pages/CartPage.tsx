@@ -28,16 +28,16 @@ const CartPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">Shopping Cart</h1>
-      <div className="bg-white border border-gray-200/80 rounded-lg overflow-hidden">
+      <div className="bg-white border border-gray-200/60 rounded-lg overflow-hidden shadow-sm">
         {cartItems.map(item => {
           const displayUnit = item.product.unit === 'meter' ? 'meter' : 'set';
           return (
             <div key={item.product.id} className="flex items-center p-4 border-b last:border-b-0">
               <img src={item.product.images[0]} alt={item.product.name} className="w-24 h-24 object-cover mr-4 rounded-md"/>
               <div className="flex-grow">
-                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-medium hover:text-primary-blue">{item.product.name}</ReactRouterDOM.Link>
+                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-medium hover:text-primary-blue transition-colors duration-250 ease-out">{item.product.name}</ReactRouterDOM.Link>
                 <p className="text-sm text-gray-500">₹{item.product.price.toLocaleString()} / {displayUnit}</p>
-                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:underline mt-1 transition-colors duration-300 ease-out hover:text-red-800">Remove</button>
+                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline mt-1 transition-colors duration-250 ease-out">Remove</button>
               </div>
               <div className="flex items-center space-x-2">
                 <input 

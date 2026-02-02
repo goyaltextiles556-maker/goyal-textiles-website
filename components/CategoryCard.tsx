@@ -6,13 +6,15 @@ import type { Category } from '../types';
 
 interface CategoryCardProps {
   category: Category;
+  index?: number;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({ category, index = 0 }) => {
   return (
     <ReactRouterDOM.Link 
       to={`/category/${category.id}`} 
-      className="group block overflow-hidden rounded-lg bg-white shadow-md transition-transform,transition-shadow duration-300 ease-out hover:-translate-y-1.5 active:scale-[0.98] active:shadow-lg hover:shadow-xl"
+      className="group block overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-1 active:scale-[0.99] opacity-0 animate-fade-in-up"
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="aspect-w-3 aspect-h-2">
         <img 

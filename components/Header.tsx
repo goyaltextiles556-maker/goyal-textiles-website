@@ -53,7 +53,13 @@ const Header: React.FC = () => {
       } else {
         const hash = path.split('#')[1];
         if (hash) {
-          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+          // Add a small delay to ensure element is rendered
+          setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 50);
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -76,7 +82,7 @@ const Header: React.FC = () => {
   const linkColorClasses = showSolidHeader ? 'text-primary-blue hover:text-blue-800' : 'text-off-white hover:text-white';
 
   return (
-    <header className={`fixed w-full top-0 z-40 transition-all duration-300 ease-out ${showSolidHeader ? 'bg-off-white/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
+    <header className={`fixed w-full top-0 z-40 transition-all duration-300 ease-out ${showSolidHeader ? 'bg-off-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-1">
@@ -115,7 +121,7 @@ const Header: React.FC = () => {
 
           <div className="flex-1 flex items-center justify-end space-x-4 sm:space-x-6">
             <a 
-              href="https://wa.me/919876543210?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order."
+              href="https://wa.me/918860440884?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order."
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Place an order via WhatsApp"

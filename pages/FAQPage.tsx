@@ -44,7 +44,7 @@ const FAQPage: React.FC = () => {
     },
     {
       q: 'How can I contact you for support or issues?',
-      a: 'For any order-related questions, return requests, or clarifications, please contact us at me@veeren.in. Please include your order ID, a clear description of the issue, and the opening video (if applicable) to help us assist you efficiently.'
+      a: 'For any order-related questions, return requests, or clarifications, please contact us at goyaltextiles556@gmail.com. Please include your order ID, a clear description of the issue, and the opening video (if applicable) to help us assist you efficiently.'
     }
   ];
 

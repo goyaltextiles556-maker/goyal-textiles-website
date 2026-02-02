@@ -13,152 +13,133 @@ const ReturnsPolicyPage: React.FC = () => {
         </p>
 
         <p>
-          At Goyal Textiles, all fabric orders are carefully checked, measured,
-          and packed before dispatch. Due to the nature of fabric products,
-          returns, refunds, or exchanges are permitted only in limited and
-          verified cases, as outlined below.
+          At <strong>Goyal Textiles</strong>, all fabric orders are checked and
+          packed before dispatch. Due to the nature of fabric products, returns,
+          refunds, or exchanges are allowed <strong>only in limited and verified
+          cases</strong>, as set out below.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          1. Eligibility for Returns, Refunds & Exchanges
+          1. Eligibility
         </h2>
-        <p>
-          Returns, refunds, or exchanges are considered only in the following
-          cases:
-        </p>
+
+        <p>Returns, refunds, or exchanges are considered <strong>only</strong> if:</p>
+
         <ul className="list-disc list-inside space-y-2 pl-4">
-          <li>Defective or damaged fabric received at the time of delivery</li>
-          <li>Incorrect fabric delivered, materially different from the order placed</li>
+          <li>
+            The fabric received is defective or damaged at the time of delivery, or
+          </li>
+          <li>
+            The fabric delivered is materially different from the order placed
+          </li>
         </ul>
+
         <p>
           No other reasons, including change of mind or subjective dissatisfaction,
           are eligible.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          2. Mandatory Verification Requirements
+          2. Mandatory Verification (Very Important)
         </h2>
-        <p>
-          To be eligible for any return, refund, or exchange, all of the
-          following conditions must be satisfied:
-        </p>
+
+        <p>To qualify for any return, refund, or exchange:</p>
+
         <ul className="list-disc list-inside space-y-2 pl-4">
           <li>
-            A clear, continuous, uncut opening video of the sealed package,
-            showing the package from all sides, the opening process, and the
-            fabric clearly visible after opening
+            A clear, continuous, uncut opening <strong>video</strong> of the sealed
+            package is required
           </li>
-          <li>The issue must be reported within 48 hours of delivery</li>
           <li>
-            The fabric must be unused, unwashed, uncut, unaltered, and in its
-            original condition
+            The issue must be reportedwithin  <strong>48 hours </strong>of delivery
+          </li>
+          <li>
+            The fabric must be unused, unwashed, uncut, and unaltered
           </li>
         </ul>
+
         <p>
-          The opening video is the primary and most reliable form of evidence for
-          verification. In the absence of a clear opening video, claims are very
-          likely to be rejected, as independent verification may not be possible.
+          The opening video is the primary evidencefor verification.
+           In the absence of such a video, claims are very likely to be rejected,
+          as independent verification may not be possible.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          3. Reporting Timeline
+          3. What Is and Is Not Covered
         </h2>
-        <p>
-          All issues must be reported within 48 hours of delivery. Requests
-          raised after this period may be rejected, except where required under
-          applicable law.
-        </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          4. What Is Covered Under Defect or Damage
-        </h2>
-        <p>
-          Defects or damage eligible for consideration include, but are not
-          limited to:
-        </p>
+        <p><strong>Covered:</strong></p>
+
         <ul className="list-disc list-inside space-y-2 pl-4">
-          <li>Fabric that is torn, ripped, or unusable at the time of delivery</li>
-          <li>Fabric that is visibly damaged or defective upon receipt</li>
+          <li>Fabric that is torn, damaged, or unusable at delivery</li>
+          <li>Fabric that is clearly defective upon receipt</li>
         </ul>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          5. What Is Not Covered
-        </h2>
+        <p className="pt-2"><strong>Not Covered:</strong></p>
+
         <ul className="list-disc list-inside space-y-2 pl-4">
-          <li>Minor color variation due to screen resolution or lighting</li>
-          <li>Color bleeding or shrinkage after washing or use</li>
+          <li>Minor color or shade variation due to screen or lighting</li>
+          <li>Shrinkage or color bleeding after washing or use</li>
           <li>Fabric that has been cut, stitched, altered, washed, or processed</li>
           <li>
-            Subjective dissatisfaction related to feel, thickness, or texture,
-            where the product matches the website description
+            Subjective dissatisfaction where the product matches the website description
           </li>
         </ul>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          6. Refunds
+          4. Refunds and Exchanges
         </h2>
+
         <p>
-          Once the returned fabric is received, inspected, and the claim is
-          approved, a refund will be issued to the original payment method within
-          5–7 working days from approval after inspection.
+          Approved refunds are issued to the original payment method
+          <strong> within 5–7 working days</strong> after inspection and approval.
+          Shipping charges are non-refundable unless required by law.
         </p>
+
         <p>
-          Shipping charges, if any, are non-refundable unless required under
-          applicable law.
+          Exchanges are allowed only for verified defects or incorrect delivery and
+          are subject to availability. If unavailable, a refund may be issued instead.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          7. Exchanges
+          5. Return Shipping
         </h2>
+
         <p>
-          Exchanges are permitted only for verified cases of defect, damage, or
-          incorrect delivery and are subject to product availability.
+          We do not offer reverse pickup. Return shipping must be arranged and paid
+          for by the customer.
         </p>
+
         <p>
-          If a replacement product is unavailable, a refund may be issued
-          instead. Any price difference between the original and replacement
-          product may be payable or refundable, as applicable.
+          Risk during return transit remains with the customer unless the return is
+          due to a verified defect or error attributable to us. A trackable courier
+          is strongly recommended.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          8. Return Shipping
+          6. Review and Governing Law
         </h2>
+
         <p>
-          We do not offer reverse pickup services. Customers are required to
-          securely package and courier the product back to us at their own cost.
+          All claims are subject to verification. We reserve the right to reject
+          claims that do not meet this Policy, subject to applicable law.
         </p>
+
         <p>
-          Risk during return transit remains with the customer unless the return
-          is due to a verified defect, damage, or error attributable to us. We
-          strongly recommend using a reliable, trackable courier service.
+          This Policy is governed by the laws of India, subject to applicable
+          consumer protection laws.
         </p>
 
         <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          9. Right to Review and Reject Claims
+          7. Contact
         </h2>
+
         <p>
-          All return, refund, and exchange requests are subject to verification.
-          We reserve the right to reject any claim that does not meet the
-          conditions outlined in this Policy or where verification is not
-          reasonably possible, subject to applicable law.
+          All requests must be initiated by email at: 
         </p>
 
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          10. How to Initiate a Return or Refund
-        </h2>
-        <p>
-          All requests must be initiated by contacting us at:
-        </p>
-        <p className="pl-4">
-          Email: me@veeren.in
-        </p>
-
-        <h2 className="text-2xl font-display font-bold text-primary-blue pt-4">
-          11. Governing Law
-        </h2>
-        <p>
-          This Policy shall be governed by and construed in accordance with the
-          laws of India, subject to applicable consumer protection laws.
+        <p className="font-medium">
+          goyaltextiles556@gmail.com
         </p>
       </div>
     </div>

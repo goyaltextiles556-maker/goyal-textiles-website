@@ -1,0 +1,60 @@
+/* Subtle entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply animations */
+.animate-fade-in-up {
+  animation: fadeInUp 600ms ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 400ms ease-out forwards;
+}
+
+/* Smooth link hover transitions */
+a {
+  transition: color 250ms ease-out;
+}
+
+/* Enhance focus states */
+button:focus-visible,
+a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

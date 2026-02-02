@@ -26,9 +26,9 @@ const ProductListPage: React.FC = () => {
     <div>
       <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">{category.name}</h1>
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>
       ) : (

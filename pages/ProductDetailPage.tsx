@@ -56,10 +56,10 @@ const ProductDetailPage: React.FC = () => {
           </div>
           {product.images.length > 1 && (
             <>
-              <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue">
+              <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue">
                 <FiChevronLeft size={24} />
               </button>
-              <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue">
+              <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue">
                 <FiChevronRight size={24} />
               </button>
             </>

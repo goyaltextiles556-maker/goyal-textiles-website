@@ -8,9 +8,10 @@ import Button from './Button';
 
 interface ProductCardProps {
   product: Product;
+  index?: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,7 +28,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div 
-      className="bg-white border border-gray-200/80 p-4 flex flex-col h-full rounded-lg shadow-sm transition-transform,transition-shadow duration-300 ease-out hover:shadow-lg hover:-translate-y-1.5 active:scale-[0.98]"
+      className="bg-white border border-gray-200/60 p-4 flex flex-col h-full rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-1 active:scale-[0.99] opacity-0 animate-fade-in-up"
+      style={{ animationDelay: `${index * 60}ms` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -64,13 +66,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </ReactRouterDOM.Link>
       <div className="flex-grow flex flex-col">
-        {product.brand && <p className="text-xs uppercase tracking-wider text-gray-500">{product.brand}</p>}
+        {product.brand && <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">{product.brand}</p>}
         <h3 className="text-lg font-medium text-gray-800 flex-grow">
-          <ReactRouterDOM.Link to={`/product/${product.id}`} className="hover:text-primary-blue transition-colors">
+          <ReactRouterDOM.Link to={`/product/${product.id}`} className="hover:text-primary-blue transition-colors duration-300 ease-out">
             {product.name}
           </ReactRouterDOM.Link>
         </h3>
-        <p className="text-gray-600 mt-1 text-sm">{product.description}</p>
+        <p className="text-gray-600 mt-2 text-sm">{product.description}</p>
         
         <div className="mt-2">
           <p className="text-lg font-semibold text-gray-900">

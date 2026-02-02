@@ -106,13 +106,13 @@ const HomePage: React.FC = () => {
       <section 
         ref={collectionsRef} 
         id="categories" 
-        className={`bg-off-white pt-12 pb-20 text-center scroll-mt-28 transition-all duration-700 ease-out ${isCollectionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        className={`bg-off-white pt-12 pb-20 text-center scroll-mt-28 transition-all duration-500 ease-out ${isCollectionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-display font-bold text-primary-blue mb-12">Our Fabric Collections</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {categories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {categories.map((category, index) => (
+              <CategoryCard key={category.id} category={category} index={index} />
             ))}
           </div>
         </div>
