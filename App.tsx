@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
+import AboutUsPage from './pages/AboutUsPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             <main className="flex-grow">
               <ReactRouterDOM.Routes>
                 <ReactRouterDOM.Route path="/" element={<HomePage />} />
+                <ReactRouterDOM.Route path="/about" element={<PageLayout><AboutUsPage /></PageLayout>} />
                 <ReactRouterDOM.Route path="/category/:categoryId" element={<PageLayout><ProductListPage /></PageLayout>} />
                 <ReactRouterDOM.Route path="/product/:productId" element={<PageLayout><ProductDetailPage /></PageLayout>} />
                 <ReactRouterDOM.Route path="/cart" element={<PageLayout><CartPage /></PageLayout>} />

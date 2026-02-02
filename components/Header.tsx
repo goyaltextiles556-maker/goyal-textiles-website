@@ -66,10 +66,12 @@ const Header: React.FC = () => {
   const navLinks = [
     { to: '/', text: 'Home', id: 'home' },
     { to: '/#categories', text: 'Categories', id: 'categories' },
+    { to: '/about', text: 'About Us', id: 'about' },
   ];
 
   const showSolidHeader = isScrolled || !isHomePage;
   const isCategoriesPage = location.pathname.startsWith('/category');
+  const isAboutPage = location.pathname === '/about';
 
   const linkColorClasses = showSolidHeader ? 'text-primary-blue hover:text-blue-800' : 'text-off-white hover:text-white';
 
@@ -93,7 +95,7 @@ const Header: React.FC = () => {
             <div className={`transition-colors duration-300 ease-out rounded-full ${showSolidHeader ? 'bg-black/5' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
               <div className="flex items-center space-x-1 p-1">
                 {navLinks.map((link) => {
-                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
+                  const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (link.id === 'about' && isAboutPage);
                   return (
                     <ReactRouterDOM.Link
                       key={link.to}
@@ -113,14 +115,14 @@ const Header: React.FC = () => {
 
           <div className="flex-1 flex items-center justify-end space-x-4 sm:space-x-6">
             <a 
-              href="https://wa.me/918860440884?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order."
+              href="https://wa.me/919876543210?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order."
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Place an order via WhatsApp"
               className={`flex items-center space-x-2 transition-all duration-300 ease-out ${linkColorClasses}`}
             >
                 <FaWhatsapp size={24} />
-                <span className="hidden sm:inline text-sm font-medium">Place an Order</span>
+                <span className="hidden sm:inline text-sm font-medium">Make an Order</span>
             </a>
             <ReactRouterDOM.Link to="/cart" className={`relative transition-all duration-300 ease-out ${linkColorClasses}`}>
               <FiShoppingCart size={24} />
@@ -143,7 +145,7 @@ const Header: React.FC = () => {
         <nav className="flex justify-center items-center py-4">
             <div className="flex items-center space-x-1 p-1 bg-black/5 rounded-full">
               {navLinks.map((link) => {
-                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage);
+                const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (link.id === 'about' && isAboutPage);
                 return (
                   <ReactRouterDOM.Link
                     key={link.to}
