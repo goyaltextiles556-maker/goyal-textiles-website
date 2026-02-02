@@ -6,6 +6,7 @@ import { products } from '../data/products';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Button from '../components/Button';
 import { useCart } from '../hooks/useCart';
+import PolicySummary from '../components/PolicySummary';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = ReactRouterDOM.useParams<{ productId: string }>();
@@ -114,6 +115,8 @@ const ProductDetailPage: React.FC = () => {
           <div className="mt-8 max-w-xs">
             <Button onClick={handleAddToCart}>Add to Cart</Button>
           </div>
+
+          <PolicySummary />
         </div>
       </div>
     </div>
