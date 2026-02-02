@@ -145,7 +145,7 @@ const CheckoutPage: React.FC = () => {
 
   if (cartItems.length === 0 && !isOrderPlaced) {
       return (
-          <div className="text-center py-20">
+          <div className="text-center py-20 animate-fade-in-up">
               <h1 className="text-2xl font-semibold">Your Cart is Empty</h1>
               <p className="mt-4 text-gray-600">You can't proceed to checkout without items.</p>
               <Button className="mt-6" onClick={() => navigate('/')}>Browse Fabrics</Button>
@@ -153,62 +153,69 @@ const CheckoutPage: React.FC = () => {
       );
   }
 
-  const formControlClasses = "block w-full px-4 py-3 sm:py-4 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent placeholder:text-gray-500 bg-white transition-all duration-250 ease-out";
+  const formControlClasses = "block w-full px-4 py-3 sm:py-4 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent placeholder:text-gray-500 bg-white transition-all duration-300 ease-out hover:border-primary-blue/50";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white animate-fade-in-up">
       {/* Header */}
-      <div className="border-b border-gray-200 py-4 sm:py-6 px-4 sm:px-6">
-        <h1 className="text-2xl sm:text-4xl font-display font-bold text-primary-blue">Checkout</h1>
+      <div className="border-b border-gray-200 py-4 sm:py-6 px-4 sm:px-6 hover:shadow-sm transition-shadow duration-300">
+        <h1 className="text-2xl sm:text-4xl font-display font-bold text-primary-blue hover:text-blue-800 transition-colors duration-300">Checkout</h1>
       </div>
 
       <div className="max-w-7xl mx-auto py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
+        {/* Required Fields Notice */}
+        <div className="mb-8 p-4 sm:p-5 bg-blue-50 border border-blue-200 rounded-lg animate-fade-in-up">
+          <p className="text-sm sm:text-base text-blue-900">
+            <span className="font-semibold">Note:</span> Fields marked with <span className="text-red-600 font-bold">*</span> are mandatory to proceed with your order.
+          </p>
+        </div>
+
         <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
           {/* Shipping Information Form */}
           <div className="lg:col-span-2">
             <div className="space-y-6 sm:space-y-8">
             
             {/* Name Section */}
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4">Full Name</h3>
+            <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4 hover:text-primary-blue transition-colors duration-300">Full Name <span className="text-red-600 font-bold">*</span></h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name" required className={formControlClasses} aria-label="First Name"/>
+                <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name *" required className={formControlClasses} aria-label="First Name"/>
                 <input type="text" name="middleName" value={formData.middleName} onChange={handleInputChange} placeholder="Middle Name" className={formControlClasses} aria-label="Middle Name"/>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last Name" required className={formControlClasses} aria-label="Last Name"/>
+                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last Name *" required className={formControlClasses} aria-label="Last Name"/>
               </div>
             </div>
             
             {/* Address Section */}
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4">Delivery Address</h3>
+            <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4 hover:text-primary-blue transition-colors duration-300">Delivery Address <span className="text-red-600 font-bold">*</span></h3>
               <div className="space-y-3 sm:space-y-4">
-                <input type="text" name="address1" value={formData.address1} onChange={handleInputChange} placeholder="Street Address" required className={formControlClasses}/>
-                <input type="text" name="address2" value={formData.address2} onChange={handleInputChange} placeholder="City / Locality" required className={formControlClasses}/>
+                <input type="text" name="address1" value={formData.address1} onChange={handleInputChange} placeholder="Street Address *" required className={formControlClasses}/>
+                <input type="text" name="address2" value={formData.address2} onChange={handleInputChange} placeholder="City / Locality *" required className={formControlClasses}/>
                 <input type="text" name="address3" value={formData.address3} onChange={handleInputChange} placeholder="Landmark or Additional Details" className={formControlClasses}/>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                   <select name="state" value={formData.state} onChange={handleStateChange} required className={formControlClasses}>
-                    <option value="" disabled>State</option>
+                    <option value="" disabled>State *</option>
                     {states.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
                   <select name="city" value={formData.city} onChange={handleInputChange} required disabled={!formData.state} className={`${formControlClasses} disabled:bg-gray-100 disabled:cursor-not-allowed`}>
-                    <option value="" disabled>City</option>
+                    <option value="" disabled>City *</option>
                     {formData.state && indianStates[formData.state]?.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
-                  <input type="text" name="pincode" value={formData.pincode} onChange={handleInputChange} placeholder="Pincode" required pattern="[0-9]{6}" maxLength={6} className={formControlClasses}/>
+                  <input type="text" name="pincode" value={formData.pincode} onChange={handleInputChange} placeholder="Pincode *" required pattern="[0-9]{6}" maxLength={6} className={formControlClasses}/>
                 </div>
               </div>
             </div>
             
             {/* Contact Section */}
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4">Contact Information</h3>
+            <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4 hover:text-primary-blue transition-colors duration-300">Contact Information <span className="text-red-600 font-bold">*</span></h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="relative">
-                  <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email Address" required className={formControlClasses}/>
+                  <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email Address *" required className={formControlClasses}/>
                   {emailSuggestions.length > 0 && (
                     <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-2 shadow-lg">
                       {emailSuggestions.map(suggestion => (
-                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 hover:bg-gray-100 cursor-pointer border-b last:border-b-0">
+                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 hover:bg-blue-50 hover:translate-x-1 cursor-pointer border-b last:border-b-0 transition-all duration-300">
                           {suggestion}
                         </div>
                       ))}
@@ -216,46 +223,46 @@ const CheckoutPage: React.FC = () => {
                   )}
                 </div>
                 <div>
-                  <div className="flex items-stretch rounded-lg border border-gray-300 overflow-hidden">
+                  <div className="flex items-stretch rounded-lg border border-gray-300 overflow-hidden hover:border-primary-blue/50 transition-colors duration-300">
                     <span className="inline-flex items-center px-3 sm:px-4 bg-white text-gray-600 font-medium text-sm sm:text-base whitespace-nowrap">
                       🇮🇳 +91
                     </span>
-                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" maxLength={10} placeholder="Phone Number" className="flex-1 px-3 sm:px-4 py-3 sm:py-4 text-sm sm:text-base placeholder:text-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-inset" />
+                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" maxLength={10} placeholder="Phone Number *" className="flex-1 px-3 sm:px-4 py-3 sm:py-4 text-sm sm:text-base placeholder:text-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-inset transition-all duration-300" />
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Instructions Section */}
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4">Special Instructions (optional)</h3>
+            <div className="animate-fade-in-up" style={{ animationDelay: '250ms' }}>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-3 sm:mb-4 hover:text-primary-blue transition-colors duration-300">Special Instructions (optional)</h3>
               <textarea id="instructions" name="instructions" value={formData.instructions} onChange={handleInputChange} rows={4} placeholder="Any delivery notes or special requests" className={formControlClasses}></textarea>
             </div>
             </div>
           </div>
 
           {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-4 sm:top-20 z-20 bg-gray-50 p-5 sm:p-6 rounded-lg border border-gray-200 shadow-sm">
-              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Order Summary</h2>
+          <div className="lg:col-span-1 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+            <div className="sticky top-4 sm:top-20 z-20 bg-gradient-to-br from-gray-50/80 to-blue-50/30 p-5 sm:p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md hover:border-primary-blue/30 transition-all duration-300">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6 hover:text-primary-blue transition-colors duration-300">Order Summary</h2>
               
               {/* Product Images */}
               {cartItems.length > 0 && (
                 <div className="mb-5 sm:mb-6 pb-5 sm:pb-6 border-b border-gray-300">
                   <div className="space-y-3">
                     {cartItems.map(item => (
-                      <div key={item.product.id} className="flex gap-3 sm:gap-4">
+                      <div key={item.product.id} className="flex gap-3 sm:gap-4 hover:bg-white/50 p-2 rounded transition-colors duration-300">
                         {item.product.images && item.product.images[0] && (
                           <img 
                             src={item.product.images[0]} 
                             alt={item.product.name}
-                            className="w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-md border border-gray-200"
+                            className="w-16 sm:w-20 h-16 sm:h-20 object-cover rounded-md border border-gray-200 hover:shadow-md transition-shadow duration-300"
                           />
                         )}
                         <div className="flex-1 min-w-0">
                           <p className="text-xs sm:text-sm font-medium text-gray-900 leading-tight">{item.product.name}</p>
                           <p className="text-xs text-gray-600 mt-1">Qty: {item.quantity}</p>
-                          <p className="text-sm sm:text-base font-bold text-primary-blue mt-2">₹{(item.product.price * item.quantity).toLocaleString()}</p>
+                          <p className="text-sm sm:text-base font-bold text-primary-blue mt-2 hover:text-blue-800 transition-colors duration-300">₹{(item.product.price * item.quantity).toLocaleString()}</p>
                         </div>
                       </div>
                     ))}
@@ -266,7 +273,7 @@ const CheckoutPage: React.FC = () => {
               {/* Price Breakdown */}
               <div className="space-y-3 mb-4 sm:mb-6">
                 {cartItems.map(item => (
-                  <div key={item.product.id} className="flex justify-between text-xs sm:text-sm text-gray-600">
+                  <div key={item.product.id} className="flex justify-between text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300">
                     <span>{item.product.name} ({item.quantity}x)</span>
                     <span className="font-medium text-gray-900">₹{(item.product.price * item.quantity).toLocaleString()}</span>
                   </div>
@@ -274,23 +281,23 @@ const CheckoutPage: React.FC = () => {
               </div>
               
               <div className="border-t border-gray-300 pt-3 sm:pt-4 space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                 <div className="flex justify-between text-xs sm:text-sm"><span className="text-gray-600">Subtotal</span><span className="text-gray-900 font-medium">₹{subtotal.toLocaleString()}</span></div>
-                 <div className="flex justify-between text-xs sm:text-sm"><span className="text-gray-600">Shipping</span><span className="text-gray-900 font-medium">₹{shipping.toLocaleString()}</span></div>
-                 <div className="flex justify-between text-xs sm:text-sm"><span className="text-gray-600">Taxes (5%)</span><span className="text-gray-900 font-medium">₹{tax.toLocaleString(undefined, {minimumFractionDigits: 2})}</span></div>
+                 <div className="flex justify-between text-xs sm:text-sm hover:bg-white/50 p-1 rounded transition-colors duration-300"><span className="text-gray-600">Subtotal</span><span className="text-gray-900 font-medium">₹{subtotal.toLocaleString()}</span></div>
+                 <div className="flex justify-between text-xs sm:text-sm hover:bg-white/50 p-1 rounded transition-colors duration-300"><span className="text-gray-600">Shipping</span><span className="text-gray-900 font-medium">₹{shipping.toLocaleString()}</span></div>
+                 <div className="flex justify-between text-xs sm:text-sm hover:bg-white/50 p-1 rounded transition-colors duration-300"><span className="text-gray-600">Taxes (5%)</span><span className="text-gray-900 font-medium">₹{tax.toLocaleString(undefined, {minimumFractionDigits: 2})}</span></div>
               </div>
               <div className="border-t border-gray-300 pt-3 sm:pt-4 mb-5 sm:mb-6">
                 <div className="flex justify-between">
                   <p className="text-xs sm:text-sm font-semibold text-gray-900">Total</p>
-                  <p className="text-base sm:text-lg font-bold text-primary-blue">₹{total.toLocaleString(undefined, {minimumFractionDigits: 2})}</p>
+                  <p className="text-base sm:text-lg font-bold text-primary-blue hover:text-blue-800 transition-colors duration-300">₹{total.toLocaleString(undefined, {minimumFractionDigits: 2})}</p>
                 </div>
               </div>
-              <Button type="submit" disabled={isProcessing} className="w-full py-3 sm:py-4 text-sm sm:text-base font-semibold">
+              <Button type="submit" disabled={isProcessing} className="w-full py-3 sm:py-4 text-sm sm:text-base font-semibold hover:scale-105 active:scale-95 transition-transform duration-300">
                 {isProcessing ? 'Processing...' : 'Complete Purchase'}
               </Button>
             </div>
           </div>
         </form>
-        <div className="mt-8 sm:mt-12">
+        <div className="mt-8 sm:mt-12 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
           <PolicySummary />
         </div>
       </div>

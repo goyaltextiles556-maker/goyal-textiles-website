@@ -30,6 +30,75 @@
   }
 }
 
+/* Foggy shimmer effect for header */
+@keyframes foggyShimmer {
+  0%, 100% {
+    box-shadow: 0 8px 50px rgba(30, 90, 140, 0.25), inset 0 0 100px rgba(255, 255, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 10px 60px rgba(30, 90, 140, 0.35), inset 0 0 120px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* Subtle scale and glow animations for cards */
+@keyframes subtleGlow {
+  0%, 100% {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(30, 90, 140, 0.12);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleInCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmerPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes softBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes floatingAnimation {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 /* Apply animations */
 .animate-fade-in-up {
   animation: fadeInUp 600ms ease-out forwards;
@@ -41,6 +110,22 @@
 
 .animate-slide-in-left {
   animation: slideInFromLeft 400ms ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 400ms ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleInCenter 400ms ease-out forwards;
+}
+
+.animate-floating {
+  animation: floatingAnimation 3s ease-in-out infinite;
+}
+
+.animate-foggy-shimmer {
+  animation: foggyShimmer 4s ease-in-out infinite;
 }
 
 /* Smooth link hover transitions */
@@ -57,4 +142,26 @@ a:focus-visible {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Utility classes for subtle effects */
+.transition-smooth {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-fast {
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 4px 20px rgba(30, 90, 140, 0.15);
+}
+
+.focus-ring:focus {
+  outline: 2px solid rgba(30, 90, 140, 0.5);
+  outline-offset: 2px;
 }

@@ -15,7 +15,7 @@ const CartPage: React.FC = () => {
 
   if (cartCount === 0) {
     return (
-      <div className="text-center py-20">
+      <div className="text-center py-20 animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold text-primary-blue mb-4">Your Cart is Empty</h1>
         <p className="text-gray-600 mb-8">Looks like you haven't added anything to your cart yet.</p>
         <ReactRouterDOM.Link to="/#categories">
@@ -26,18 +26,18 @@ const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto animate-fade-in-up">
       <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">Shopping Cart</h1>
-      <div className="bg-white border border-gray-200/60 rounded-lg overflow-hidden shadow-sm">
-        {cartItems.map(item => {
+      <div className="bg-white border border-gray-200/60 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+        {cartItems.map((item, index) => {
           const displayUnit = item.product.unit === 'meter' ? 'meter' : 'set';
           return (
-            <div key={item.product.id} className="flex items-center p-4 border-b last:border-b-0">
-              <img src={item.product.images[0]} alt={item.product.name} className="w-24 h-24 object-cover mr-4 rounded-md"/>
+            <div key={item.product.id} className="flex items-center p-4 border-b last:border-b-0 hover:bg-blue-50/30 transition-colors duration-300 animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
+              <img src={item.product.images[0]} alt={item.product.name} className="w-24 h-24 object-cover mr-4 rounded-md hover:shadow-md transition-shadow duration-300"/>
               <div className="flex-grow">
                 <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-medium hover:text-primary-blue transition-colors duration-250 ease-out">{item.product.name}</ReactRouterDOM.Link>
                 <p className="text-sm text-gray-500">₹{item.product.price.toLocaleString()} / {displayUnit}</p>
-                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline mt-1 transition-colors duration-250 ease-out">Remove</button>
+                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline hover:scale-105 mt-1 transition-all duration-250 ease-out inline-block">Remove</button>
               </div>
               <div className="flex items-center space-x-2">
                 <input 
@@ -45,7 +45,7 @@ const CartPage: React.FC = () => {
                   value={item.quantity}
                   onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value, 10))}
                   min="1"
-                  className="w-16 border-gray-300 rounded-md text-center"
+                  className="w-16 border-gray-300 rounded-md text-center hover:border-primary-blue transition-colors duration-300 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
                 />
                  <p className="w-24 text-right font-semibold">₹{(item.product.price * item.quantity).toLocaleString()}</p>
               </div>
@@ -54,7 +54,7 @@ const CartPage: React.FC = () => {
         })}
       </div>
 
-      <div className="mt-8 flex justify-end">
+      <div className="mt-8 flex justify-end animate-fade-in-up" style={{ animationDelay: '200ms' }}>
         <div className="w-full max-w-sm">
           <div className="flex justify-between text-lg">
             <span>Subtotal:</span>

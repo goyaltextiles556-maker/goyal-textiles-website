@@ -14,6 +14,8 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [logoOpacity, setLogoOpacity] = useState(0);
+  const [headerOpacity, setHeaderOpacity] = useState(1);
+  const [hasScrollStarted, setHasScrollStarted] = useState(false);
   const { activeSection } = useScrollSpy();
   const location = ReactRouterDOM.useLocation();
   const navigate = ReactRouterDOM.useNavigate();
@@ -21,12 +23,28 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50 || !isHomePage);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 50 || !isHomePage);
+      
+      // Track if scrolling has started on homepage
+      if (isHomePage && scrollY > 0 && !hasScrollStarted) {
+        setHasScrollStarted(true);
+      } else if (isHomePage && scrollY === 0) {
+        setHasScrollStarted(false);
+      }
+      
+      // Increase transparency as you scroll (more transparent the more you scroll)
+      if (isHomePage) {
+        const opacity = Math.max(0.7, 1 - scrollY / 800);
+        setHeaderOpacity(opacity);
+      } else {
+        setHeaderOpacity(1);
+      }
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
+  }, [isHomePage, hasScrollStarted]);
 
   useEffect(() => {
     if (!isHomePage) {
@@ -82,14 +100,22 @@ const Header: React.FC = () => {
   const linkColorClasses = showSolidHeader ? 'text-primary-blue hover:text-blue-800' : 'text-off-white hover:text-white';
 
   return (
-    <header className={`fixed w-full top-0 z-40 transition-all duration-300 ease-out ${showSolidHeader ? 'bg-off-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'}`}>
+    <header 
+      className={`fixed w-full top-0 z-40 transition-all duration-300 ease-out ${hasScrollStarted ? 'backdrop-blur-xl animate-foggy-shimmer' : 'backdrop-blur-none'}`}
+      style={{
+        backgroundColor: showSolidHeader 
+          ? `rgba(248, 250, 252, ${headerOpacity})` 
+          : `rgba(255, 255, 255, ${isHomePage && hasScrollStarted ? headerOpacity * 0.15 : 0})`,
+        borderBottom: `1px solid rgba(203, 213, 225, ${hasScrollStarted ? headerOpacity * 0.3 : 0})`
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-1">
             <ReactRouterDOM.Link 
               to="/" 
               onClick={(e) => handleNavClick(e, '/')}
-              className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-opacity duration-300 ease-out whitespace-nowrap"
+              className="text-lg sm:text-xl font-bold uppercase font-display tracking-wider text-primary-blue transition-all duration-300 ease-out whitespace-nowrap hover:scale-105 active:scale-95"
               style={{ opacity: isHomePage ? logoOpacity : 1, textShadow: (isHomePage && logoOpacity > 0.9) || !isHomePage ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none' }}
               aria-hidden={isHomePage && logoOpacity < 1}
             >
@@ -98,7 +124,7 @@ const Header: React.FC = () => {
           </div>
           
           <nav className="hidden md:block">
-            <div className={`transition-colors duration-300 ease-out rounded-full ${showSolidHeader ? 'bg-black/5' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
+            <div className={`transition-all duration-300 ease-out rounded-full ${showSolidHeader ? 'bg-black/5 shadow-sm' : 'bg-primary-blue/20 backdrop-blur-md'}`}>
               <div className="flex items-center space-x-1 p-1">
                 {navLinks.map((link) => {
                   const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (link.id === 'about' && isAboutPage);
@@ -107,8 +133,8 @@ const Header: React.FC = () => {
                       key={link.to}
                       to={link.to}
                       onClick={(e) => handleNavClick(e, link.to)}
-                      className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ease-out block ${
-                        isLinkActive ? 'bg-off-white text-primary-blue shadow-sm' : showSolidHeader ? 'text-primary-blue hover:bg-black/10' : 'text-off-white hover:bg-off-white/20'
+                      className={`px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ease-out block hover:scale-105 active:scale-95 ${
+                        isLinkActive ? 'bg-off-white text-primary-blue shadow-md' : showSolidHeader ? 'text-primary-blue hover:bg-black/10' : 'text-off-white hover:bg-off-white/20'
                       }`}
                     >
                       {link.text}
@@ -125,21 +151,21 @@ const Header: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Place an order via WhatsApp"
-              className={`flex items-center space-x-2 transition-all duration-300 ease-out ${linkColorClasses}`}
+              className={`flex items-center space-x-2 transition-all duration-300 ease-out hover:scale-110 active:scale-95 ${linkColorClasses}`}
             >
                 <FaWhatsapp size={24} />
                 <span className="hidden sm:inline text-sm font-medium">Make an Order</span>
             </a>
-            <ReactRouterDOM.Link to="/cart" className={`relative transition-all duration-300 ease-out ${linkColorClasses}`}>
+            <ReactRouterDOM.Link to="/cart" className={`relative transition-all duration-300 ease-out hover:scale-110 active:scale-95 ${linkColorClasses}`}>
               <FiShoppingCart size={24} />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary-blue text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-primary-blue text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-floating font-semibold">
                   {cartCount}
                 </span>
               )}
             </ReactRouterDOM.Link>
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`transition-colors duration-300 ease-out ${linkColorClasses}`}>
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`transition-all duration-300 ease-out hover:scale-110 active:scale-95 ${linkColorClasses}`}>
                 {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
               </button>
             </div>

@@ -13,9 +13,9 @@ const ProductListPage: React.FC = () => {
 
   if (!category) {
     return (
-      <div className="text-center py-20">
+      <div className="text-center py-20 animate-fade-in-up">
         <h2 className="text-2xl font-semibold">Category not found</h2>
-        <ReactRouterDOM.Link to="/categories" className="text-primary-blue hover:underline mt-4 inline-block">
+        <ReactRouterDOM.Link to="/categories" className="text-primary-blue hover:underline hover:text-blue-800 transition-colors duration-300 mt-4 inline-block">
           Back to Categories
         </ReactRouterDOM.Link>
       </div>
@@ -23,8 +23,8 @@ const ProductListPage: React.FC = () => {
   }
   
   return (
-    <div>
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12">{category.name}</h1>
+    <div className="animate-fade-in-up">
+      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-12 hover:scale-105 transition-transform duration-300">{category.name}</h1>
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {filteredProducts.map((product, index) => (
@@ -32,7 +32,7 @@ const ProductListPage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-600">No products found in this category yet.</p>
+        <p className="text-center text-gray-600 animate-fade-in-up">No products found in this category yet.</p>
       )}
     </div>
   );
