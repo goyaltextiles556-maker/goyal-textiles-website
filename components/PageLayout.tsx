@@ -1,16 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-/**
- * A wrapper for standard pages that provides consistent padding and spacing,
- * ensuring content appears below the fixed header. It also adds a fade-in
- * transition on page load.
- */
 const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const location = ReactRouterDOM.useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     setIsVisible(false);

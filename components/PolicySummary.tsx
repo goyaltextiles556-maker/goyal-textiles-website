@@ -1,7 +1,6 @@
 
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PolicySummary: React.FC = () => {
   return (
@@ -15,7 +14,7 @@ const PolicySummary: React.FC = () => {
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Fabric must be unused, unwashed, uncut, and unaltered.</li>
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Change of mind is not eligible.</li>
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Refunds processed within 5–7 working days after inspection.</li>
-          <li className="hover:translate-x-1 transition-transform duration-300">Read our <ReactRouterDOM.Link to="/returns-policy" className="font-semibold text-primary-blue hover:text-blue-800 hover:underline transition-all duration-250 ease-out">Returns, Refunds & Exchange Policy</ReactRouterDOM.Link>.</li>
+          <li className="hover:translate-x-1 transition-transform duration-300">Read our <Link to="/returns-policy" className="font-semibold text-primary-blue hover:text-blue-800 hover:underline transition-all duration-250 ease-out">Returns, Refunds & Exchange Policy</Link>.</li>
         </ul>
       </div>
       <div>
@@ -26,7 +25,7 @@ const PolicySummary: React.FC = () => {
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Shipping charges are non-refundable.</li>
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Orders cannot be cancelled once dispatched.</li>
           <li className="text-gray-700 hover:text-gray-900 transition-colors duration-300">Provide accurate delivery details to avoid delays.</li>
-          <li className="hover:translate-x-1 transition-transform duration-300">Read our <ReactRouterDOM.Link to="/shipping-policy" className="font-semibold text-primary-blue hover:text-blue-800 hover:underline transition-all duration-250 ease-out">Shipping & Cancellation Policy</ReactRouterDOM.Link>.</li>
+          <li className="hover:translate-x-1 transition-transform duration-300">Read our <Link to="/shipping-policy" className="font-semibold text-primary-blue hover:text-blue-800 hover:underline transition-all duration-250 ease-out">Shipping & Cancellation Policy</Link>.</li>
         </ul>
       </div>
     </div>

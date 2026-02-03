@@ -1,4 +1,6 @@
 import React from 'react';
+import { FiPhone, FiMail } from 'react-icons/fi';
+import { SiWhatsapp } from 'react-icons/si';
 
 const FAQPage: React.FC = () => {
   const faqs = [
@@ -54,7 +56,7 @@ const FAQPage: React.FC = () => {
         Frequently Asked Questions
       </h1>
 
-      <div className="space-y-8">
+      <div className="space-y-8 mb-16">
         {faqs.map((faq, index) => (
           <div key={index}>
             <h2 className="text-xl font-display font-bold text-primary-blue mb-2">
@@ -65,6 +67,75 @@ const FAQPage: React.FC = () => {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="py-12 px-6 sm:px-10 bg-gradient-to-br from-off-white/40 to-off-white/20 rounded-2xl border border-gray-200/50">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-display font-bold text-primary-blue mb-3">
+            Still Have Questions?
+          </h2>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            We're here to help! Reach out to our team via phone or email, and we'll get back to you promptly.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <a
+            href="tel:+919810777391"
+            className="group block p-6 bg-white rounded-xl border border-gray-200/70 hover:border-primary-blue hover:shadow-lg transition-all duration-300"
+          >
+            <div className="flex items-center gap-4 mb-3">
+              <FiPhone className="text-primary-blue flex-shrink-0 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h3 className="text-lg font-bold text-primary-blue group-hover:text-blue-900 transition-colors duration-300">
+                Call Us
+              </h3>
+            </div>
+            <p className="text-gray-600 font-medium">
+              +91 98107 77391
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              Mon - Sat: 10:00 AM - 8:00 PM
+            </p>
+          </a>
+
+          <a
+            href="mailto:goyaltextiles556@gmail.com"
+            className="group block p-6 bg-white rounded-xl border border-gray-200/70 hover:border-primary-blue hover:shadow-lg transition-all duration-300"
+          >
+            <div className="flex items-center gap-4 mb-3">
+              <FiMail className="text-primary-blue flex-shrink-0 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h3 className="text-lg font-bold text-primary-blue group-hover:text-blue-900 transition-colors duration-300">
+                Email Us
+              </h3>
+            </div>
+            <p className="text-gray-600 font-medium break-all">
+              goyaltextiles556@gmail.com
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              Response within 24 hours
+            </p>
+          </a>
+
+          <a
+            href="https://wa.me/919810777391"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block p-6 bg-white rounded-xl border border-gray-200/70 hover:border-primary-blue hover:shadow-lg transition-all duration-300"
+          >
+            <div className="flex items-center gap-4 mb-3">
+              <SiWhatsapp className="text-primary-blue flex-shrink-0 group-hover:scale-110 transition-transform duration-300" size={24} />
+              <h3 className="text-lg font-bold text-primary-blue group-hover:text-blue-900 transition-colors duration-300">
+                WhatsApp
+              </h3>
+            </div>
+            <p className="text-gray-600 font-medium">
+              +91 98107 77391
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              Quick responses
+            </p>
+          </a>
+        </div>
       </div>
     </div>
   );

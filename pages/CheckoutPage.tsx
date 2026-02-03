@@ -1,5 +1,4 @@
 
-// FIX: Manually define types for import.meta.env since vite/client types could not be resolved.
 declare global {
   interface ImportMetaEnv {
     readonly VITE_API_BASE_URL: string;
@@ -8,8 +7,7 @@ declare global {
 
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../hooks/useCart';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { indianStates, states } from '../data/locations';
 import PolicySummary from '../components/PolicySummary';
@@ -18,7 +16,7 @@ const emailProviders = ['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 
 
 const CheckoutPage: React.FC = () => {
   const { cartItems, clearCart } = useCart();
-  const navigate = ReactRouterDOM.useNavigate();
+  const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   
@@ -226,7 +224,7 @@ const CheckoutPage: React.FC = () => {
                   {emailSuggestions.length > 0 && (
                     <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-2 shadow-lg">
                       {emailSuggestions.map(suggestion => (
-                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 hover:translate-x-1 cursor-pointer border-b last:border-b-0 transition-all duration-300 font-medium">
+                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 cursor-pointer border-b last:border-b-0 transition-all duration-300 font-medium relative overflow-hidden" onMouseEnter={createRipple}>
                           {suggestion}
                         </div>
                       ))}
@@ -302,7 +300,7 @@ const CheckoutPage: React.FC = () => {
                   <p className="text-2xl font-bold text-primary-blue hover:text-blue-800 transition-colors duration-300">₹{total.toLocaleString(undefined, {minimumFractionDigits: 2})}</p>
                 </div>
               </div>
-              <Button type="submit" disabled={isProcessing} className="w-full py-3.5 text-base font-bold hover:scale-105 active:scale-95 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+              <Button type="submit" disabled={isProcessing} className="w-full py-3.5 text-base font-bold disabled:opacity-50 disabled:cursor-not-allowed">
                 {isProcessing ? 'Processing Order...' : 'Complete Purchase'}
               </Button>
             </div>

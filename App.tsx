@@ -1,7 +1,6 @@
 
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ScrollSpyProvider } from './context/ScrollSpyContext';
 
@@ -24,30 +23,30 @@ import FAQPage from './pages/FAQPage';
 const App: React.FC = () => {
   return (
     <CartProvider>
-      <ReactRouterDOM.HashRouter>
+      <HashRouter>
         <ScrollSpyProvider>
           <ScrollToTop />
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
-              <ReactRouterDOM.Routes>
-                <ReactRouterDOM.Route path="/" element={<HomePage />} />
-                <ReactRouterDOM.Route path="/about" element={<PageLayout><AboutUsPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/category/:categoryId" element={<PageLayout><ProductListPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/product/:productId" element={<PageLayout><ProductDetailPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/cart" element={<PageLayout><CartPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/checkout" element={<PageLayout><CheckoutPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/privacy-policy" element={<PageLayout><PrivacyPolicyPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/terms-of-service" element={<PageLayout><TermsOfServicePage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/returns-policy" element={<PageLayout><ReturnsPolicyPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/shipping-policy" element={<PageLayout><ShippingPolicyPage /></PageLayout>} />
-                <ReactRouterDOM.Route path="/faq" element={<PageLayout><FAQPage /></PageLayout>} />
-              </ReactRouterDOM.Routes>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<PageLayout><AboutUsPage /></PageLayout>} />
+                <Route path="/category/:categoryId" element={<PageLayout><ProductListPage /></PageLayout>} />
+                <Route path="/product/:productId" element={<PageLayout><ProductDetailPage /></PageLayout>} />
+                <Route path="/cart" element={<PageLayout><CartPage /></PageLayout>} />
+                <Route path="/checkout" element={<PageLayout><CheckoutPage /></PageLayout>} />
+                <Route path="/privacy-policy" element={<PageLayout><PrivacyPolicyPage /></PageLayout>} />
+                <Route path="/terms-of-service" element={<PageLayout><TermsOfServicePage /></PageLayout>} />
+                <Route path="/returns-policy" element={<PageLayout><ReturnsPolicyPage /></PageLayout>} />
+                <Route path="/shipping-policy" element={<PageLayout><ShippingPolicyPage /></PageLayout>} />
+                <Route path="/faq" element={<PageLayout><FAQPage /></PageLayout>} />
+              </Routes>
             </main>
             <Footer />
           </div>
         </ScrollSpyProvider>
-      </ReactRouterDOM.HashRouter>
+      </HashRouter>
     </CartProvider>
   );
 };

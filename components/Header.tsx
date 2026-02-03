@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
-import { FiShoppingCart, FiMenu, FiX, FiSearch } from 'react-icons/fi';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useCart } from '../hooks/useCart';
 import { useScrollSpy } from '../context/ScrollSpyContext';
 import SearchBar from './SearchBar';
+import { createRipple } from '../utils/rippleEffect';
 
 const Header: React.FC = () => {
   const { cartCount } = useCart();
@@ -14,8 +14,8 @@ const Header: React.FC = () => {
   const [heroHeight, setHeroHeight] = useState(0);
   const [headerStyle, setHeaderStyle] = useState<React.CSSProperties>({});
   const { activeSection } = useScrollSpy();
-  const location = ReactRouterDOM.useLocation();
-  const navigate = ReactRouterDOM.useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   // Handle scroll position changes
@@ -160,21 +160,21 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-20">
           {/* Left Side: Logo + Nav */}
           <div className="flex items-center gap-x-6">
-            <ReactRouterDOM.Link 
+            <Link 
               to="/" 
               onClick={(e) => handleNavClick(e, '/')}
-              className={`text-lg sm:text-xl font-bold uppercase font-display tracking-wider transition-all duration-300 ease-out whitespace-nowrap hover:scale-105 active:scale-95 ${
+              className={`text-lg sm:text-xl font-bold uppercase font-display tracking-wider transition-all duration-300 ease-out whitespace-nowrap ${
                 isHeaderDark ? 'text-off-white drop-shadow-sm' : 'text-primary-blue'
               }`}
             >
               GOYAL TEXTILES
-            </ReactRouterDOM.Link>
+            </Link>
             
             <nav className="hidden md:flex items-center gap-x-6">
               {navLinks.map((link) => {
                 const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (link.id === 'about' && isAboutPage);
                 return (
-                  <ReactRouterDOM.Link
+                  <Link
                     key={link.to}
                     to={link.to}
                     onClick={(e) => handleNavClick(e, link.to)}
@@ -189,7 +189,7 @@ const Header: React.FC = () => {
                     }`}
                   >
                     {link.text}
-                  </ReactRouterDOM.Link>
+                  </Link>
                 )
               })}
             </nav>
@@ -205,18 +205,19 @@ const Header: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Place an order via WhatsApp"
-              className={`flex items-center space-x-2 transition-all duration-300 ease-out hover:scale-110 active:scale-95 group ${
+              className={`flex items-center space-x-2 transition-all duration-300 ease-out group relative overflow-hidden ${
                 isHeaderDark ? 'text-off-white' : 'text-primary-blue'
               }`}
+              onMouseEnter={createRipple}
             >
               <FaWhatsapp size={24} />
               <span className={`hidden sm:inline text-sm font-medium transition-colors duration-300 ${
                 isHeaderDark ? 'group-hover:text-gray-200' : 'group-hover:text-blue-800'
               }`}>Make an Order</span>
             </a>
-            <ReactRouterDOM.Link 
+            <Link 
               to="/cart" 
-              className={`relative transition-all duration-300 ease-out hover:scale-110 active:scale-95 group ${
+              className={`relative transition-all duration-300 ease-out group ${
                 isHeaderDark ? 'text-off-white' : 'text-primary-blue'
               }`}
             >
@@ -228,13 +229,14 @@ const Header: React.FC = () => {
                   {cartCount > 9 ? '9+' : cartCount}
                 </span>
               )}
-            </ReactRouterDOM.Link>
+            </Link>
             <div className="md:hidden">
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
-                className={`transition-all duration-300 ease-out hover:scale-110 active:scale-95 ${
+                className={`transition-all duration-300 ease-out ${
                   isHeaderDark ? 'text-off-white' : 'text-primary-blue'
-                }`}
+                } relative overflow-hidden`}
+                onMouseEnter={createRipple}
               >
                 {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
               </button>
@@ -255,7 +257,7 @@ const Header: React.FC = () => {
             {navLinks.map((link) => {
               const isLinkActive = (isHomePage && activeSection === link.id) || (link.id === 'categories' && isCategoriesPage) || (link.id === 'about' && isAboutPage);
               return (
-                <ReactRouterDOM.Link
+                <Link
                   key={link.to}
                   to={link.to}
                   onClick={(e) => handleNavClick(e, link.to)}
@@ -270,7 +272,7 @@ const Header: React.FC = () => {
                   }`}
                 >
                   {link.text}
-                </ReactRouterDOM.Link>
+                </Link>
               );
             })}
           </nav>

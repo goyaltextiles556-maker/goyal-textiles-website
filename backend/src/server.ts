@@ -1,6 +1,4 @@
 import dns from 'node:dns';
-
-// Fix DNS resolution issue for MongoDB connections
 dns.setServers(["1.1.1.1"]);
 
 import express from 'express';
@@ -12,17 +10,14 @@ import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import { exit } from 'process';
 
-// Load environment variables from .env file
 dotenv.config();
 
 const port = process.env.PORT || 3001;
 
 const startServer = async () => {
   try {
-    // Await the database connection before starting the server
     await connectDB();
 
-    // FIX: Explicitly type `app` as `express.Application` to resolve type ambiguities.
     const app: express.Application = express();
 
     // Enable CORS
@@ -42,7 +37,7 @@ const startServer = async () => {
 
     // API Routes
     app.use('/api/products', productRoutes);
-    app.use('/api', orderRoutes); // Matches /api/create-order from frontend
+    app.use('/api', orderRoutes);
 
     // Error handling middleware
     app.use(notFound);

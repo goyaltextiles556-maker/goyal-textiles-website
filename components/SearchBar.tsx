@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import type { Product } from '../types';
 import { FiSearch } from 'react-icons/fi';
@@ -62,9 +61,9 @@ const SearchBar: React.FC = () => {
       {isOpen && results.length > 0 && (
         <div className="absolute top-full mt-3 w-full md:w-96 bg-white rounded-xl shadow-xl border border-gray-200/80 z-50 max-h-96 overflow-y-auto animate-slide-down">
           <ul className="divide-y divide-gray-100">
-            {results.map((product, idx) => (
+            {results.map((product) => (
               <li key={product.id}>
-                <ReactRouterDOM.Link
+                <Link
                   to={`/product/${product.id}`}
                   onClick={handleLinkClick}
                   className="flex items-center p-3.5 hover:bg-blue-50/70 transition-colors duration-200 ease-out group"
@@ -74,7 +73,7 @@ const SearchBar: React.FC = () => {
                     <p className="font-semibold text-sm text-gray-800 group-hover:text-primary-blue transition-colors duration-300">{product.name}</p>
                     <p className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors duration-300">₹{product.price.toLocaleString()}</p>
                   </div>
-                </ReactRouterDOM.Link>
+                </Link>
               </li>
             ))}
           </ul>

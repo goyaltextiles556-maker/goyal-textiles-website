@@ -1,7 +1,5 @@
 
 import React, { useRef, useEffect, useState } from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
 import { categories } from '../data/products';
 import CategoryCard from '../components/CategoryCard';
 import { useScrollSpy } from '../context/ScrollSpyContext';

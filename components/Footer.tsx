@@ -1,7 +1,6 @@
 
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { categories } from '../data/products';
 
 const Footer: React.FC = () => {
@@ -28,12 +27,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-2.5">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <ReactRouterDOM.Link 
+                  <Link 
                     to={`/category/${category.id}`} 
                     className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium"
                   >
                     {category.name}
-                  </ReactRouterDOM.Link>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -45,31 +44,19 @@ const Footer: React.FC = () => {
               Information
             </h3>
             <ul className="space-y-2.5">
-              <li>
-                <ReactRouterDOM.Link to="/privacy-policy" className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
-                  Privacy Policy
-                </ReactRouterDOM.Link>
-              </li>
-              <li>
-                <ReactRouterDOM.Link to="/terms-of-service" className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
-                  Terms of Service
-                </ReactRouterDOM.Link>
-              </li>
-              <li>
-                <ReactRouterDOM.Link to="/returns-policy" className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
-                  Returns, Refunds & Exchange
-                </ReactRouterDOM.Link>
-              </li>
-              <li>
-                <ReactRouterDOM.Link to="/shipping-policy" className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
-                  Shipping & Cancellation
-                </ReactRouterDOM.Link>
-              </li>
-              <li>
-                <ReactRouterDOM.Link to="/faq" className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
-                  FAQ
-                </ReactRouterDOM.Link>
-              </li>
+              {[
+                { to: '/privacy-policy', label: 'Privacy Policy' },
+                { to: '/terms-of-service', label: 'Terms of Service' },
+                { to: '/returns-policy', label: 'Returns, Refunds & Exchange' },
+                { to: '/shipping-policy', label: 'Shipping & Cancellation' },
+                { to: '/faq', label: 'FAQ' },
+              ].map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to} className="text-sm text-gray-200 hover:text-white hover:underline hover:translate-x-1 transition-all duration-250 ease-out inline-block font-medium">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

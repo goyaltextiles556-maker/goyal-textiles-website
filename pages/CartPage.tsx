@@ -1,7 +1,6 @@
 
 import React from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import Button from '../components/Button';
 
@@ -18,11 +17,11 @@ const CartPage: React.FC = () => {
       <div className="text-center py-20 animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold text-primary-blue mb-4">Your Cart is Empty</h1>
         <p className="text-gray-600 mb-10 text-lg">Looks like you haven't added anything to your cart yet.</p>
-        <ReactRouterDOM.Link to="/#categories">
+        <Link to="/#categories">
           <div className="w-80 mx-auto">
             <Button>Browse Fabrics</Button>
           </div>
-        </ReactRouterDOM.Link>
+        </Link>
       </div>
     );
   }
@@ -35,13 +34,13 @@ const CartPage: React.FC = () => {
           const displayUnit = item.product.unit === 'meter' ? 'meter' : 'set';
           return (
             <div key={item.product.id} className="flex items-center p-6 border-b border-gray-200/50 last:border-b-0 hover:bg-blue-50/40 transition-colors duration-300 animate-fade-in-up group" style={{ animationDelay: `${index * 50}ms` }}>
-              <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="flex-shrink-0">
+              <Link to={`/product/${item.product.id}`} className="flex-shrink-0">
                 <img src={item.product.images[0]} alt={item.product.name} className="w-28 h-28 object-cover mr-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:brightness-110"/>
-              </ReactRouterDOM.Link>
+              </Link>
               <div className="flex-grow">
-                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-semibold text-lg hover:text-primary-blue transition-colors duration-250 ease-out">{item.product.name}</ReactRouterDOM.Link>
+                <Link to={`/product/${item.product.id}`} className="font-semibold text-lg hover:text-primary-blue transition-colors duration-250 ease-out">{item.product.name}</Link>
                 <p className="text-sm text-gray-500 mt-1">₹{item.product.price.toLocaleString()} / {displayUnit}</p>
-                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline hover:scale-105 mt-2 transition-all duration-250 ease-out inline-block font-medium">Remove</button>
+                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline mt-2 transition-all duration-250 ease-out inline-block font-medium">Remove</button>
               </div>
               <div className="flex items-center space-x-4">
                 <input 
@@ -66,9 +65,9 @@ const CartPage: React.FC = () => {
           </div>
           <p className="text-xs text-gray-500 mt-3 pb-6 border-b border-gray-200/50">Shipping & taxes calculated at checkout.</p>
           <div className="mt-6">
-            <ReactRouterDOM.Link to="/checkout">
+            <Link to="/checkout">
               <Button>Proceed to Checkout</Button>
-            </ReactRouterDOM.Link>
+            </Link>
           </div>
         </div>
       </div>

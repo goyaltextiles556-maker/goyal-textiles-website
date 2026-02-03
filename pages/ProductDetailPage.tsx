@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
-// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
-import * as ReactRouterDOM from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { products } from '../data/products';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Button from '../components/Button';
@@ -9,7 +8,7 @@ import { useCart } from '../hooks/useCart';
 import PolicySummary from '../components/PolicySummary';
 
 const ProductDetailPage: React.FC = () => {
-  const { productId } = ReactRouterDOM.useParams<{ productId: string }>();
+  const { productId } = useParams<{ productId: string }>();
   const product = products.find(p => p.id === productId);
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -54,10 +53,10 @@ const ProductDetailPage: React.FC = () => {
           </div>
           {product.images.length > 1 && (
             <>
-              <button onClick={prevImage} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue hover:scale-110 active:scale-95 shadow-lg hover:shadow-xl">
+              <button onClick={prevImage} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue shadow-lg hover:shadow-xl relative overflow-hidden" onMouseEnter={createRipple}>
                 <FiChevronLeft size={24} className="text-primary-blue" />
               </button>
-              <button onClick={nextImage} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue hover:scale-110 active:scale-95 shadow-lg hover:shadow-xl">
+              <button onClick={nextImage} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue shadow-lg hover:shadow-xl relative overflow-hidden" onMouseEnter={createRipple}>
                 <FiChevronRight size={24} className="text-primary-blue" />
               </button>
             </>
@@ -110,7 +109,7 @@ const ProductDetailPage: React.FC = () => {
             />
           </div>
 
-          <div className="mt-10 max-w-xs hover:scale-105 transition-transform duration-300 active:scale-95">
+          <div className="mt-10 max-w-xs">
             <Button onClick={handleAddToCart}>Add to Cart</Button>
           </div>
 

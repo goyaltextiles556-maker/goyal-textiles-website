@@ -1,9 +1,15 @@
 import React from 'react';
 import { FiPhone, FiMapPin, FiClock, FiStar } from 'react-icons/fi';
-import * as ReactRouterDOM from 'react-router-dom';
+import { SiWhatsapp } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
+import { createRipple } from '../utils/rippleEffect';
 
 const AboutUsPage = () => {
+  const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
+    createRipple(e);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6">
       <div className="mb-12 text-center">
@@ -147,29 +153,68 @@ const AboutUsPage = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <ReactRouterDOM.Link to="/privacy-policy" className="block group">
-              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg group-hover:scale-105 transition-all duration-300 text-center cursor-pointer">
+            <Link to="/privacy-policy" className="block group">
+              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg transition-all duration-300 text-center cursor-pointer relative overflow-hidden" onMouseEnter={handleHover} onClick={createRipple}>
                 <p className="text-primary-blue font-bold text-lg group-hover:text-blue-900 transition-colors duration-300">Privacy Policy</p>
               </div>
-            </ReactRouterDOM.Link>
+            </Link>
             
-            <ReactRouterDOM.Link to="/terms-of-service" className="block group">
-              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg group-hover:scale-105 transition-all duration-300 text-center cursor-pointer">
+            <Link to="/terms-of-service" className="block group">
+              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg transition-all duration-300 text-center cursor-pointer relative overflow-hidden" onMouseEnter={handleHover} onClick={createRipple}>
                 <p className="text-primary-blue font-bold text-lg group-hover:text-blue-900 transition-colors duration-300">Terms of Service</p>
               </div>
-            </ReactRouterDOM.Link>
+            </Link>
             
-            <ReactRouterDOM.Link to="/returns-policy" className="block group">
-              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg group-hover:scale-105 transition-all duration-300 text-center cursor-pointer">
+            <Link to="/returns-policy" className="block group">
+              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg transition-all duration-300 text-center cursor-pointer relative overflow-hidden" onMouseEnter={handleHover} onClick={createRipple}>
                 <p className="text-primary-blue font-bold text-lg group-hover:text-blue-900 transition-colors duration-300">Returns & Refunds</p>
               </div>
-            </ReactRouterDOM.Link>
+            </Link>
             
-            <ReactRouterDOM.Link to="/shipping-policy" className="block group">
-              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg group-hover:scale-105 transition-all duration-300 text-center cursor-pointer">
+            <Link to="/shipping-policy" className="block group">
+              <div className="p-5 bg-white rounded-xl border border-gray-200/70 group-hover:border-primary-blue group-hover:shadow-lg transition-all duration-300 text-center cursor-pointer relative overflow-hidden" onMouseEnter={handleHover} onClick={createRipple}>
                 <p className="text-primary-blue font-bold text-lg group-hover:text-blue-900 transition-colors duration-300">Shipping Policy</p>
               </div>
-            </ReactRouterDOM.Link>
+            </Link>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-gray-200/50 text-center">
+            <p className="text-gray-700 text-lg mb-6 font-medium">
+              Still have questions?
+            </p>
+            <Link to="/faq" className="inline-block group mb-6">
+              <div className="px-8 py-4 bg-primary-blue text-white rounded-xl group-hover:bg-blue-900 group-hover:shadow-lg transition-all duration-300 cursor-pointer relative overflow-hidden" onMouseEnter={handleHover} onClick={createRipple}>
+                <p className="font-bold text-lg">Explore Our FAQ</p>
+              </div>
+            </Link>
+            <p className="text-gray-600 text-sm mb-3">
+              Or reach out directly
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm">
+              <a
+                href="tel:+919810777391"
+                className="text-primary-blue hover:text-blue-900 hover:underline font-medium transition-colors duration-300"
+              >
+                Call us at +91 98107 77391
+              </a>
+              <span className="text-gray-400 hidden sm:inline">|</span>
+              <a
+                href="https://wa.me/919810777391"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary-blue hover:text-blue-900 hover:underline font-medium transition-colors duration-300"
+              >
+                <SiWhatsapp size={16} />
+                Message us on WhatsApp
+              </a>
+              <span className="text-gray-400 hidden sm:inline">|</span>
+              <a
+                href="mailto:goyaltextiles556@gmail.com"
+                className="text-primary-blue hover:text-blue-900 hover:underline font-medium transition-colors duration-300"
+              >
+                Email: goyaltextiles556@gmail.com
+              </a>
+            </div>
           </div>
         </div>
       </div>

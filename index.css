@@ -23,6 +23,15 @@
   --color-neutral-600: #4B5563;
   --color-neutral-700: #374151;
   --color-neutral-800: #1F2937;
+
+  /* Transition duration variables */
+  --duration-fast: 200ms;
+  --duration-normal: 250ms;
+  --duration-medium: 300ms;
+  --duration-slow: 500ms;
+
+  /* Easing function variable */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Subtle entrance animations */
@@ -148,12 +157,13 @@
   }
 }
 
-@keyframes smoothHover {
-  0%, 100% {
-    transform: translateY(0);
+/* Radial Reveal Animation - Circular Clip-Path Hover Effect */
+@keyframes revealCircle {
+  from {
+    clip-path: circle(0% at 50% 50%);
   }
-  50% {
-    transform: translateY(-3px);
+  to {
+    clip-path: circle(120% at 50% 50%);
   }
 }
 
@@ -196,7 +206,7 @@
 
 /* Smooth link hover transitions */
 a {
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color var(--duration-normal) var(--ease-standard);
 }
 
 /* Enhance focus states */
@@ -210,17 +220,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Utility classes for smooth effects */
+/* Utility classes for smooth effects - use for components with multiple transitioning properties */
 .transition-smooth {
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--duration-medium) var(--ease-standard);
 }
 
 .transition-fast {
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--duration-fast) var(--ease-standard);
 }
 
 .transition-slow {
-  transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--duration-slow) var(--ease-standard);
 }
 
 .hover-lift:hover {
@@ -238,7 +248,7 @@ html {
 
 /* Slideshow smooth transitions */
 .slideshow-fade {
-  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 1200ms var(--ease-standard);
 }
 
 /* Section dividers for visual rhythm */
@@ -251,12 +261,11 @@ html {
 /* Enhanced card shadows for depth */
 .card-shadow-subtle {
   box-shadow: 0 2px 8px rgba(42, 67, 101, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow var(--duration-medium) var(--ease-standard);
 }
 
-.card-shadow-hover {
+.card-shadow-subtle:hover {
   box-shadow: 0 12px 28px rgba(42, 67, 101, 0.14), 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-shadow-elevated {
@@ -276,7 +285,7 @@ input[type="email"],
 input[type="number"],
 select,
 textarea {
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color var(--duration-normal) var(--ease-standard), box-shadow var(--duration-normal) var(--ease-standard);
 }
 
 input:focus,
@@ -294,16 +303,126 @@ textarea:hover:not(:focus) {
 
 /* Enhanced button transitions */
 button {
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color var(--duration-normal) var(--ease-standard), color var(--duration-normal) var(--ease-standard), box-shadow var(--duration-normal) var(--ease-standard);
 }
 
 button:active {
   transition: transform 100ms cubic-bezier(0.6, 0, 0.4, 1);
 }
 
+/* Radial Reveal Button - Global Base Styles */
+.radial-reveal-button {
+  position: relative;
+}
+
+.radial-reveal-button::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  clip-path: circle(0% at 50% 50%);
+  z-index: 1;
+  transition: clip-path 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: inherit;
+}
+
+.radial-reveal-button:active {
+  transition: transform 100ms cubic-bezier(0.6, 0, 0.4, 1);
+}
+
+/* Primary Button Radial Reveal - Navy to Premium Dark Gray */
+.radial-reveal-primary {
+  color: white;
+  background-color: #2D4363;
+  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.radial-reveal-primary::before {
+  background-color: #152233;
+}
+
+.radial-reveal-primary:hover {
+  background-color: #152233;
+}
+
+.radial-reveal-primary:hover::before {
+  clip-path: circle(200% at 50% 50%);
+}
+
+/* Ensure text stays above the reveal layer - Primary */
+.radial-reveal-primary span {
+  position: relative;
+  z-index: 10;
+  color: white;
+}
+
+/* Secondary Button Radial Reveal - White to Premium Dark Gray */
+.radial-reveal-secondary {
+  background-color: white;
+  color: #2D4363;
+  border: 2px solid #2D4363;
+  position: relative;
+  transition: border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.radial-reveal-secondary::before {
+  background-color: #152233;
+}
+
+.radial-reveal-secondary:hover {
+  border-color: #152233;
+  background-color: #152233;
+}
+
+.radial-reveal-secondary:hover::before {
+  clip-path: circle(200% at 50% 50%);
+}
+
+/* Text color and layering transition for secondary button on hover */
+.radial-reveal-secondary span {
+  position: relative;
+  z-index: 10;
+  color: #2D4363;
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.radial-reveal-secondary:hover span {
+  color: white;
+}
+
+/* Radial Ripple Effect on Click */
+@keyframes radialRipple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.radial-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) !important;
+}
+
+.radial-reveal-primary .radial-ripple {
+  background-color: rgba(255, 255, 255, 0.4);
+  animation: radialRipple 0.6s ease-out;
+}
+
+.radial-reveal-secondary .radial-ripple {
+  background-color: rgba(45, 67, 99, 0.3);
+  animation: radialRipple 0.6s ease-out;
+}
+
 /* Smooth appearance for images */
 img {
-  transition: all 300ms ease-out;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
 }
 
 /* Refined scrollbar styling */
@@ -329,5 +448,35 @@ img {
 /* Subtle background patterns */
 .bg-gradient-smooth {
   background: linear-gradient(135deg, var(--color-off-white) 0%, rgba(232, 240, 247, 0.3) 100%);
-  transition: all 500ms ease-in-out;
+  transition: background var(--duration-slow) ease-in-out;
+}
+/* Respect user's motion preferences - accessibility best practice */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable heavy decorative animations */
+  .animate-floating,
+  .animate-foggy-shimmer {
+    animation: none;
+  }
+
+  /* Simplify entrance animations to instant */
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in,
+  .animate-slide-down,
+  .animate-slide-up {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* Disable hover lift effect */
+  .hover-lift:hover {
+    transform: none;
+  }
+
+  /* Remove smooth scrolling */
+  html {
+    scroll-behavior: auto;
+  }
 }
