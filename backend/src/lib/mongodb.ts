@@ -7,19 +7,18 @@ let mongoClient: MongoClient | null = null;
 
 /**
  * Returns a connected MongoDB client instance.
- * If a connection already exists, it returns the existing client.
- * Otherwise, it creates a new connection and returns the client.
+ * It assumes connectMongoClient has been called successfully on startup.
  * 
- * @param uri - The MongoDB connection string.
+ * @param uri - The MongoDB connection string (only used for the initial connection).
  * @returns A promise that resolves to a MongoClient instance.
  */
-export async function getMongoClient(uri: string): Promise<MongoClient> {
+export async function getMongoClient(uri?: string): Promise<MongoClient> {
   if (mongoClient) {
     return mongoClient;
   }
 
   if (!uri) {
-    throw new Error('MongoDB URI is not defined. Please check your .env file.');
+    throw new Error('MongoDB URI is not defined. Please check your .env file and server startup logic.');
   }
 
   // If no client, create a new one

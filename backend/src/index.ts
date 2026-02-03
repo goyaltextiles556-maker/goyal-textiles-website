@@ -1,7 +1,3 @@
-import dns from "dns";
-// Set explicit DNS servers to bypass local DNS issues
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
-dns.setDefaultResultOrder("ipv4first");
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -16,11 +12,11 @@ dotenv.config();
 
 const app = new Hono();
 
-// Configure CORS to allow requests from the frontend - MUST be before routes
-app.use('*', cors({
-  origin: '*',
-  allowMethods: ['POST', 'GET', 'OPTIONS', 'HEAD', 'PUT', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization'],
+// Configure CORS to allow requests from the frontend
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use('/api/*', cors({
+  origin: frontendUrl,
+  allowMethods: ['POST', 'GET', 'OPTIONS'],
 }));
 
 // API route to create an order
@@ -32,7 +28,7 @@ app.post('/api/create-order', async (c) => {
       return c.json({ error: 'Cart is empty' }, 400);
     }
 
-    const mongo = await getMongoClient(process.env.MONGODB_URI!);
+    const mongo = await getMongoClient(); // No need to pass URI here anymore
     const db = mongo.db('goyaltextiles');
     const ordersCollection = db.collection<Order>('orders');
 
@@ -57,7 +53,7 @@ const port = parseInt(process.env.PORT || '3001', 10);
 
 // --- START OF NEW CONNECTION LOGIC ---
 // Connect to MongoDB on startup to ensure the connection is valid.
-getMongoClient(process.env.MONGODB_URI!)
+getMongoClient(process.env.MONGODB_URI)
   .then(() => {
     // Once the database connection is successful, start the server.
     serve({
