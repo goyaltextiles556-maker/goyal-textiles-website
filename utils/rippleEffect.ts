@@ -1,30 +1,36 @@
+
+import React from 'react';
+
 export const createRipple = (e: React.MouseEvent<HTMLElement>) => {
   const element = e.currentTarget;
+  
+  // Ensure the element is positioned to contain the ripple
+  if (getComputedStyle(element).position === 'static') {
+    element.style.position = 'relative';
+  }
+  
+  const circle = document.createElement("span");
+  const diameter = Math.max(element.clientWidth, element.clientHeight);
+  const radius = diameter / 2;
+
+  circle.style.width = circle.style.height = `${diameter}px`;
+  // Position the ripple center at the click location
   const rect = element.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  circle.style.left = `${e.clientX - rect.left - radius}px`;
+  circle.style.top = `${e.clientY - rect.top - radius}px`;
 
-  const ripple = document.createElement('span');
-  ripple.className = 'radial-ripple';
-  
-  // Determine ripple color based on background
-  const bgColor = element.className;
-  const isBlueBackground = bgColor.includes('bg-primary-blue');
-  const rippleColor = isBlueBackground 
-    ? 'rgba(255, 255, 255, 0.5)' 
-    : 'rgba(42, 67, 101, 0.35)';
-  
-  ripple.style.left = `${x}px`;
-  ripple.style.top = `${y}px`;
-  ripple.style.position = 'absolute';
-  ripple.style.borderRadius = '50%';
-  ripple.style.backgroundColor = rippleColor;
-  ripple.style.pointerEvents = 'none';
-  ripple.style.transform = 'translate(-50%, -50%)';
-  ripple.style.width = '0';
-  ripple.style.height = '0';
-  ripple.style.animation = 'radialRipple 0.6s ease-out forwards';
+  // Apply base ripple styles
+  circle.style.position = 'absolute';
+  circle.style.borderRadius = '50%';
+  circle.style.transform = 'scale(0)';
+  circle.style.animation = 'radialRipple 600ms linear';
+  circle.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+  circle.classList.add('radial-ripple');
 
-  element.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 600);
+  const existingRipple = element.querySelector('.radial-ripple');
+  if (existingRipple) {
+    existingRipple.remove();
+  }
+
+  element.appendChild(circle);
 };

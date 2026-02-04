@@ -1,7 +1,10 @@
-
+// FIX: Define ImportMetaEnv and ImportMeta interfaces locally to resolve vite/client type issues.
 declare global {
   interface ImportMetaEnv {
     readonly VITE_API_BASE_URL: string;
+  }
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
   }
 }
 
@@ -11,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { indianStates, states } from '../data/locations';
 import PolicySummary from '../components/PolicySummary';
+import { createRipple } from '../utils/rippleEffect';
 
 const emailProviders = ['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 'icloud.com', 'proton.me'];
 
@@ -85,6 +89,7 @@ const CheckoutPage: React.FC = () => {
       address: `${formData.address1}, ${formData.address2}, ${formData.address3 ? formData.address3 + ',' : ''} ${formData.city}, ${formData.state} - ${formData.pincode}`,
     };
 
+    // FIX: Types for import.meta.env are now defined at the top of the file.
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
     if (!apiBaseUrl) {
         alert('API URL is not configured. Please contact support.');
@@ -185,7 +190,7 @@ const CheckoutPage: React.FC = () => {
             <div className="space-y-6">
             
             {/* Name Section */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '100ms' }}>
               <h3 className="text-base font-bold text-gray-900 mb-4 hover:text-primary-blue transition-colors duration-300">Full Name <span className="text-red-600">*</span></h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name" required className={formControlClasses} aria-label="First Name"/>
@@ -195,7 +200,7 @@ const CheckoutPage: React.FC = () => {
             </div>
             
             {/* Address Section */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '150ms' }}>
               <h3 className="text-base font-bold text-gray-900 mb-4 hover:text-primary-blue transition-colors duration-300">Delivery Address <span className="text-red-600">*</span></h3>
               <div className="space-y-3 sm:space-y-4">
                 <input type="text" name="address1" value={formData.address1} onChange={handleInputChange} placeholder="Street Address" required className={formControlClasses}/>
@@ -216,15 +221,15 @@ const CheckoutPage: React.FC = () => {
             </div>
             
             {/* Contact Section */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <div className={`relative animate-fade-in-up ${emailSuggestions.length > 0 ? 'z-10' : ''}`} style={{ animationDelay: '200ms' }}>
               <h3 className="text-base font-bold text-gray-900 mb-4 hover:text-primary-blue transition-colors duration-300">Contact Information <span className="text-red-600">*</span></h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="relative">
                   <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email Address" required className={formControlClasses}/>
                   {emailSuggestions.length > 0 && (
-                    <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-2 shadow-lg">
+                    <div className="absolute left-0 top-full mt-2 w-full bg-white border border-gray-200/80 rounded-lg shadow-lg max-h-64 overflow-y-auto z-50">
                       {emailSuggestions.map(suggestion => (
-                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 cursor-pointer border-b last:border-b-0 transition-all duration-300 font-medium relative overflow-hidden" onMouseEnter={createRipple}>
+                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 cursor-pointer border-b last:border-b-0 transition-colors duration-300 font-medium overflow-hidden" onMouseEnter={createRipple}>
                           {suggestion}
                         </div>
                       ))}
@@ -243,16 +248,16 @@ const CheckoutPage: React.FC = () => {
             </div>
 
             {/* Instructions Section */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '250ms' }}>
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '250ms' }}>
               <h3 className="text-base font-bold text-gray-900 mb-4 hover:text-primary-blue transition-colors duration-300">Special Instructions (optional)</h3>
-              <textarea id="instructions" name="instructions" value={formData.instructions} onChange={handleInputChange} rows={4} placeholder="Any delivery notes or special requests..." className={formControlClasses}></textarea>
+              <textarea id="instructions" name="instructions" value={formData.instructions} onChange={handleInputChange} rows={4} placeholder="Any delivery notes or special requests..." className={`${formControlClasses} resize-none`}></textarea>
             </div>
             </div>
           </div>
 
           {/* Order Summary */}
           <div className="lg:col-span-1 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <div className="sticky top-24 z-20 bg-white border border-gray-200/80 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-primary-blue/20 transition-all duration-300">
+            <div className="sticky top-24 z-0 bg-white border border-gray-200/80 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-primary-blue/20 transition-all duration-300">
               <h2 className="text-lg font-bold text-gray-900 mb-6 hover:text-primary-blue transition-colors duration-300">Order Summary</h2>
               
               {/* Product Images */}

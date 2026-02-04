@@ -1,8 +1,10 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import Button from '../components/Button';
+import { FiPlus, FiMinus, FiTrash2 } from 'react-icons/fi';
 
 const CartPage: React.FC = () => {
   const { cartItems, updateQuantity, removeFromCart, cartCount } = useCart();
@@ -17,11 +19,11 @@ const CartPage: React.FC = () => {
       <div className="text-center py-20 animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold text-primary-blue mb-4">Your Cart is Empty</h1>
         <p className="text-gray-600 mb-10 text-lg">Looks like you haven't added anything to your cart yet.</p>
-        <Link to="/#categories">
+        <ReactRouterDOM.Link to="/#categories">
           <div className="w-80 mx-auto">
             <Button>Browse Fabrics</Button>
           </div>
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
     );
   }
@@ -33,24 +35,41 @@ const CartPage: React.FC = () => {
         {cartItems.map((item, index) => {
           const displayUnit = item.product.unit === 'meter' ? 'meter' : 'set';
           return (
-            <div key={item.product.id} className="flex items-center p-6 border-b border-gray-200/50 last:border-b-0 hover:bg-blue-50/40 transition-colors duration-300 animate-fade-in-up group" style={{ animationDelay: `${index * 50}ms` }}>
-              <Link to={`/product/${item.product.id}`} className="flex-shrink-0">
-                <img src={item.product.images[0]} alt={item.product.name} className="w-28 h-28 object-cover mr-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:brightness-110"/>
-              </Link>
-              <div className="flex-grow">
-                <Link to={`/product/${item.product.id}`} className="font-semibold text-lg hover:text-primary-blue transition-colors duration-250 ease-out">{item.product.name}</Link>
+            <div key={item.product.id} className="flex items-center p-4 sm:p-6 border-b border-gray-200/50 last:border-b-0 hover:bg-blue-50/40 transition-colors duration-300 animate-fade-in-up group" style={{ animationDelay: `${index * 50}ms` }}>
+              <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="flex-shrink-0">
+                <img src={item.product.images[0]} alt={item.product.name} className="w-24 h-24 sm:w-28 sm:h-28 object-cover mr-4 sm:mr-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:brightness-110"/>
+              </ReactRouterDOM.Link>
+              <div className="flex-grow min-w-0">
+                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-semibold text-base sm:text-lg hover:text-primary-blue transition-colors duration-250 ease-out line-clamp-2">{item.product.name}</ReactRouterDOM.Link>
                 <p className="text-sm text-gray-500 mt-1">₹{item.product.price.toLocaleString()} / {displayUnit}</p>
-                <button onClick={() => removeFromCart(item.product.id)} className="text-xs text-red-600 hover:text-red-800 hover:underline mt-2 transition-all duration-250 ease-out inline-block font-medium">Remove</button>
               </div>
-              <div className="flex items-center space-x-4">
-                <input 
-                  type="number" 
-                  value={item.quantity}
-                  onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value, 10))}
-                  min="1"
-                  className="w-20 border border-gray-300/60 rounded-lg text-center py-2 hover:border-primary-blue transition-colors duration-300 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 font-medium"
-                />
-                 <p className="w-32 text-right font-bold text-lg text-gray-900">₹{(item.product.price * item.quantity).toLocaleString()}</p>
+              <div className="flex items-center gap-x-4 sm:gap-x-6 ml-4">
+                <div className="flex items-center border border-gray-300/60 rounded-lg bg-white group-hover:border-primary-blue/30 transition-colors duration-300">
+                  <button 
+                    onClick={() => updateQuantity(item.product.id, item.quantity - 1)} 
+                    className="p-2.5 hover:bg-gray-100 rounded-l-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue/50 disabled:opacity-50 disabled:cursor-not-allowed" 
+                    aria-label="Decrease quantity"
+                    disabled={item.quantity <= 1}
+                  >
+                    <FiMinus size={16} className="text-gray-700" />
+                  </button>
+                  <span className="px-3 font-semibold text-center text-gray-800 w-12">{item.quantity}</span>
+                  <button 
+                    onClick={() => updateQuantity(item.product.id, item.quantity + 1)} 
+                    className="p-2.5 hover:bg-gray-100 rounded-r-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue/50" 
+                    aria-label="Increase quantity"
+                  >
+                    <FiPlus size={16} className="text-gray-700" />
+                  </button>
+                </div>
+                 <p className="w-24 sm:w-32 text-right font-bold text-lg text-gray-900 hidden sm:block">₹{(item.product.price * item.quantity).toLocaleString()}</p>
+                 <button 
+                   onClick={() => removeFromCart(item.product.id)} 
+                   className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                   aria-label="Remove item"
+                  >
+                    <FiTrash2 size={20} />
+                  </button>
               </div>
             </div>
           );
@@ -65,9 +84,9 @@ const CartPage: React.FC = () => {
           </div>
           <p className="text-xs text-gray-500 mt-3 pb-6 border-b border-gray-200/50">Shipping & taxes calculated at checkout.</p>
           <div className="mt-6">
-            <Link to="/checkout">
+            <ReactRouterDOM.Link to="/checkout">
               <Button>Proceed to Checkout</Button>
-            </Link>
+            </ReactRouterDOM.Link>
           </div>
         </div>
       </div>

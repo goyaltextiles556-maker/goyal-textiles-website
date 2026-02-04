@@ -1,7 +1,8 @@
-
 import mongoose from 'mongoose';
+// FIX: Import the Product type to strongly type the Mongoose model.
+import { Product as ProductType } from '../types/types.js';
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema<ProductType>({
   id: { type: String, required: true, unique: true }, // Corresponds to the frontend product ID
   name: { type: String, required: true },
   brand: { type: String },
@@ -18,6 +19,6 @@ const productSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model<ProductType>('Product', productSchema);
 
 export default Product;
