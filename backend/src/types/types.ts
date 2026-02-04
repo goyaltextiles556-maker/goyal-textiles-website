@@ -12,6 +12,11 @@ export interface Product {
   images: string[];
   intendedUse: string;
   materialDetails: string;
+  fabricDetails?: {
+    width?: string;
+    lengthNeeded?: string;
+    usageReference?: string;
+  };
 }
 
 export interface Category {

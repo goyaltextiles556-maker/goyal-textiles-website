@@ -1,3 +1,4 @@
+
 import type { Product, Category } from '../types';
 
 export const categories: Category[] = [
@@ -24,6 +25,11 @@ export const products: Product[] = [
     images: ['/images/example-fabric-1.webp', '/images/example-fabric-2.webp'],
     intendedUse: 'Formal suits, blazers, trousers.',
     materialDetails: '70% Wool, 30% Polyester. Dry clean only.',
+    fabricDetails: {
+      width: '58 inches (approx. 147 cm)',
+      lengthNeeded: 'Approx. 3.0 meters for a full suit',
+      usageReference: 'Sufficient for one standard two-piece suit (Size 38-42)',
+    },
   },
   {
     id: 's002',
@@ -54,6 +60,12 @@ export const products: Product[] = [
     images: ['https://picsum.photos/seed/sh001a/800/800', 'https://picsum.photos/seed/sh001b/800/800'],
     intendedUse: 'Formal shirts, casual shirts.',
     materialDetails: '100% Giza Cotton. Machine washable.',
+
+    fabricDetails: {
+      width: '58 inches (approx. 147 cm)',
+      lengthNeeded: 'Approx. 3.0 meters for a full suit',
+      usageReference: 'Sufficient for one standard two-piece suit (Size 38-42)',
+    },
   },
   {
     id: 'sh002',
@@ -115,8 +127,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/pantshirt_gift_vimal_2_exp.webp',
-      '/images/gifting/pantshirt_gift_vimal_1_exp.webp',
+      '/images/gifting/pantshirt_gift_vimal_2.webp',
+      '/images/gifting/pantshirt_gift_vimal_1.webp',
     ],
     intendedUse: 'Formal wear, office wear, gifting',
     materialDetails: 'Cotton',
@@ -133,8 +145,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/pantshirt_gift_siyarams_2_exp.webp',
-      '/images/gifting/pantshirt_gift_siyarams_1_exp.webp',
+      '/images/gifting/pantshirt_gift_siyarams_2.webp',
+      '/images/gifting/pantshirt_gift_siyarams_1.webp',
     ],
     intendedUse: 'Formal wear, office wear, gifting',
     materialDetails: 'Cotton',
@@ -169,8 +181,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/pantshirt_gift_raymond_1_exp.webp',
-      '/images/gifting/pantshirt_gift_raymond_2_exp.webp',
+      '/images/gifting/pantshirt_gift_raymond_1.webp',
+      '/images/gifting/pantshirt_gift_raymond_2.webp',
     ],
     intendedUse: 'Formal wear, office wear, gifting',
     materialDetails: 'Cotton',
@@ -223,8 +235,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/pantshirt_gift_vimal2.webp',
-      '/images/gifting/pantshirt_gift_vimal1.webp',
+      '/images/gifting/pantshirt_gift_vimal_2.webp',
+      '/images/gifting/pantshirt_gift_vimal_1.webp',
     ],
     intendedUse: 'Formal wear, office wear, gifting',
     materialDetails: 'Cotton',
@@ -274,8 +286,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/safarisuit_gift_gwalior_2_exp.webp',
-      '/images/gifting/safarisuit_gift_skyland_1.webp',
+      '/images/gifting/safarisuit_gift_gwalior_2.webp',
+      '/images/gifting/safarisuit_gift_gwalior_1.webp',
     ],
     intendedUse: 'Formal wear, office wear, gifting',
     materialDetails: 'Cotton',

@@ -1,3 +1,4 @@
+
 // FIX: Define ImportMetaEnv and ImportMeta interfaces locally to resolve vite/client type issues.
 declare global {
   interface ImportMetaEnv {
@@ -10,7 +11,7 @@ declare global {
 
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../hooks/useCart';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { indianStates, states } from '../data/locations';
 import PolicySummary from '../components/PolicySummary';
@@ -47,11 +48,20 @@ const CheckoutPage: React.FC = () => {
   );
   // Mock shipping and tax
   const shipping = subtotal > 0 ? 100 : 0;
-  const tax = subtotal * 0.05;
+  const tax = 0; // Tax removed as per request
   const total = subtotal + shipping + tax;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    if (name === 'phone') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      if (numericValue.length <= 10) {
+        setFormData(prev => ({ ...prev, [name]: numericValue }));
+      }
+      return;
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }));
 
     if (name === 'email') {
@@ -241,7 +251,7 @@ const CheckoutPage: React.FC = () => {
                     <span className="inline-flex items-center px-4 bg-white text-gray-700 font-semibold text-sm whitespace-nowrap">
                       🇮🇳 +91
                     </span>
-                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" maxLength={10} placeholder="Phone Number (10 digits)" className="flex-1 px-4 py-3 text-sm placeholder:text-gray-500/70 bg-white focus:outline-none focus:ring-2 focus:ring-primary-blue/50 focus:ring-inset transition-all duration-300" />
+                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" placeholder="Phone Number (10 digits)" className="flex-1 px-4 py-3 text-sm placeholder:text-gray-500/70 bg-white focus:outline-none focus:ring-2 focus:ring-primary-blue/50 focus:ring-inset transition-all duration-300" />
                   </div>
                 </div>
               </div>
@@ -267,14 +277,18 @@ const CheckoutPage: React.FC = () => {
                     {cartItems.map(item => (
                       <div key={item.product.id} className="flex gap-4 hover:bg-blue-50/40 p-2 rounded transition-colors duration-300">
                         {item.product.images && item.product.images[0] && (
-                          <img 
-                            src={item.product.images[0]} 
-                            alt={item.product.name}
-                            className="w-20 h-20 object-cover rounded-lg border border-gray-200/60 hover:shadow-md transition-shadow duration-300"
-                          />
+                          <Link to={`/product/${item.product.id}`}>
+                            <img 
+                              src={item.product.images[0]} 
+                              alt={item.product.name}
+                              className="w-20 h-20 object-cover rounded-lg border border-gray-200/60 hover:shadow-md transition-shadow duration-300"
+                            />
+                          </Link>
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 leading-snug">{item.product.name}</p>
+                          <Link to={`/product/${item.product.id}`} className="text-sm font-medium text-gray-900 leading-snug hover:text-primary-blue transition-colors duration-300">
+                            {item.product.name}
+                          </Link>
                           <p className="text-xs text-gray-500 mt-1.5">Qty: {item.quantity}</p>
                           <p className="text-base font-bold text-primary-blue mt-2 hover:text-blue-800 transition-colors duration-300">₹{(item.product.price * item.quantity).toLocaleString()}</p>
                         </div>
@@ -297,7 +311,6 @@ const CheckoutPage: React.FC = () => {
               <div className="border-t border-gray-200/80 pt-4 space-y-2.5 mb-6">
                  <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded transition-colors duration-300"><span className="text-gray-600 font-medium">Subtotal</span><span className="text-gray-900 font-semibold">₹{subtotal.toLocaleString()}</span></div>
                  <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded transition-colors duration-300"><span className="text-gray-600 font-medium">Shipping</span><span className="text-gray-900 font-semibold">₹{shipping.toLocaleString()}</span></div>
-                 <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded transition-colors duration-300"><span className="text-gray-600 font-medium">Taxes (5%)</span><span className="text-gray-900 font-semibold">₹{tax.toLocaleString(undefined, {minimumFractionDigits: 2})}</span></div>
               </div>
               <div className="border-t border-gray-200/80 pt-4 mb-6">
                 <div className="flex justify-between items-center">
