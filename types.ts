@@ -26,6 +26,7 @@ export interface Category {
 }
 
 export interface CartItem {
+  cartItemId: string; // Unique identifier for each cart line item
   product: Product;
   quantity: number;
 }

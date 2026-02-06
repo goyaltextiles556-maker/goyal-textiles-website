@@ -6,7 +6,7 @@ import { categories } from '../data/products';
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gradient-to-b from-primary-blue to-blue-950 text-off-white mt-12 transition-all duration-300 hover:shadow-2xl">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
           {/* About Us Section */}
           <div className="animate-fade-in-up" style={{ animationDelay: '0ms' }}>
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-blue-400/30 mt-8 pt-4 text-center text-xs text-blue-200/80 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-          <p className="hover:text-blue-200 transition-colors duration-300 font-medium">© 2024 Goyal Textiles. A family-owned business committed to quality.</p>
+          <p className="hover:text-blue-200 transition-colors duration-300 font-medium">Goyal Textiles. A family owned business.</p>
         </div>
       </div>
     </footer>

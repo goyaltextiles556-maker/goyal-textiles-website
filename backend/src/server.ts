@@ -1,7 +1,5 @@
-import dns from 'node:dns';
-dns.setServers(["1.1.1.1"]);
 
-import express from 'express';
+import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
@@ -10,15 +8,18 @@ import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import { exit } from 'process';
 
+// Load environment variables from .env file
 dotenv.config();
 
 const port = process.env.PORT || 3001;
 
 const startServer = async () => {
   try {
+    // Await the database connection before starting the server
     await connectDB();
 
-    const app: express.Application = express();
+    // FIX: Explicitly type `app` as `Application` to resolve type ambiguities.
+    const app: Application = express();
 
     // Enable CORS
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
@@ -37,9 +38,10 @@ const startServer = async () => {
 
     // API Routes
     app.use('/api/products', productRoutes);
-    app.use('/api', orderRoutes);
+    app.use('/api', orderRoutes); // Matches /api/create-order from frontend
 
     // Error handling middleware
+    // FIX: Errors for the following lines are resolved by correctly typing the handlers in errorMiddleware.ts
     app.use(notFound);
     app.use(errorHandler);
 

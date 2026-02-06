@@ -48,23 +48,23 @@ export const products: Product[] = [
   // Shirting
   {
     id: 'sh001',
-    name: 'Crisp White Cotton Poplin',
-    brand: 'Giza House',
+    name: 'Cotton Linen Shirting',
+    brand: 'Arvind Mafatlal',
     description: 'A high-quality, breathable white cotton for classic formal and casual shirts.',
     longDescription:
-      'Made from the finest Giza cotton, this poplin fabric is known for its smooth texture and durability. It remains crisp and fresh throughout the day, making it the perfect choice for an essential white shirt.',
-    price: 850,
-    originalPrice: 1000,
+      'This cotton-linen blend offers a breathable feel with a subtle textured finish. The fabric is lightweight and comfortable, making it suitable for everyday formal and semi-formal wear. Its balanced weave ensures good durability while maintaining softness against the skin.',
+    price: 450,
+    originalPrice: 650,
     unit: 'meter',
     category: 'shirting',
     images: ['https://picsum.photos/seed/sh001a/800/800', 'https://picsum.photos/seed/sh001b/800/800'],
-    intendedUse: 'Formal shirts, casual shirts.',
-    materialDetails: '100% Giza Cotton. Machine washable.',
+    intendedUse: 'Formal shirts, office wear, daily wear shirts.',
+    materialDetails: 'Cotton Linen Blend. Wash care as per fabric recommendation.',
 
     fabricDetails: {
       width: '58 inches (approx. 147 cm)',
-      lengthNeeded: 'Approx. 3.0 meters for a full suit',
-      usageReference: 'Sufficient for one standard two-piece suit (Size 38-42)',
+      lengthNeeded: 'Approx. 1.6 meters for one shirt',
+      usageReference: 'Sufficient for one standard shirt (Size 42–44)',
     },
   },
   {
@@ -109,8 +109,8 @@ export const products: Product[] = [
     unit: 'set',
     category: 'gifting',
     images: [
-      '/images/gifting/pantshirt_withhanky_gift_siyarams_2_exp.webp',
-      '/images/gifting/pantshirt_withhanky_gift_siyarams_1_exp.webp',
+      '/images/gifting/pantshirt_withhanky_gift_siyarams_2.webp',
+      '/images/gifting/pantshirt_withhanky_gift_siyarams_1.webp',
     ],
     intendedUse: 'Formal wear, office wear, festive and formal gifting',
     materialDetails: 'Cotton',

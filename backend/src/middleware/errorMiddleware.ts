@@ -1,16 +1,20 @@
 
-import express from 'express';
+// FIX: Import explicit types from express to resolve type conflicts.
+import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 
-const notFound: express.RequestHandler = (req, res, next) => {
+// FIX: Use explicit express types for request handlers to avoid conflicts.
+const notFound = (req: Request, res: Response, next: NextFunction) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
   next(error);
 };
 
-const errorHandler: express.ErrorRequestHandler = (err, req, res, next) => {
+// FIX: Use explicit express types for error handlers to avoid conflicts.
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
+  // Mongoose Bad ObjectId
   if (err.name === 'CastError' && (err as any).kind === 'ObjectId') {
     statusCode = 404;
     message = 'Resource not found';

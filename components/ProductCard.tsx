@@ -56,8 +56,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
         </div>
       </Link>
       <div className="flex-grow flex flex-col">
-        {product.brand && <p className="text-xs uppercase tracking-wider text-gray-500/70 mb-2.5 group-hover:text-primary-blue transition-colors duration-300 font-semibold">{product.brand}</p>}
-        <h3 className="text-base font-semibold text-gray-800 flex-grow">
+        {product.brand && <p className="text-sm uppercase tracking-wider text-gray-900 mb-1.5 group-hover:text-primary-blue transition-colors duration-300 font-bold">{product.brand}</p>}
+        <h3 className="text-xs font-medium text-gray-600 flex-grow">
           <Link to={`/product/${product.id}`} className="hover:text-primary-blue transition-colors duration-300 ease-out line-clamp-2 block">
             {product.name}
           </Link>

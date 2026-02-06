@@ -62,6 +62,14 @@ const CheckoutPage: React.FC = () => {
       return;
     }
     
+    if (name === 'pincode') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      if (numericValue.length <= 6) {
+        setFormData(prev => ({ ...prev, [name]: numericValue }));
+      }
+      return;
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }));
 
     if (name === 'email') {
@@ -204,7 +212,7 @@ const CheckoutPage: React.FC = () => {
               <h3 className="text-base font-bold text-gray-900 mb-4 hover:text-primary-blue transition-colors duration-300">Full Name <span className="text-red-600">*</span></h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First Name" required className={formControlClasses} aria-label="First Name"/>
-                <input type="text" name="middleName" value={formData.middleName} onChange={handleInputChange} placeholder="Middle Name" className={formControlClasses} aria-label="Middle Name"/>
+                <input type="text" name="middleName" value={formData.middleName} onChange={handleInputChange} placeholder="Middle Name (optional)" className={formControlClasses} aria-label="Middle Name"/>
                 <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last Name" required className={formControlClasses} aria-label="Last Name"/>
               </div>
             </div>
