@@ -1,6 +1,6 @@
 
-// FIX: Import explicit types from express to resolve type conflicts.
-import { Request, Response } from 'express';
+// FIX: Import the default express module and use namespaced types to avoid conflicts.
+import express from 'express';
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import Product from '../models/productModel.js';
@@ -10,8 +10,8 @@ import { CartItem, Product as ProductType } from '../types/types.js';
 // @desc    Create a new order
 // @route   POST /api/create-order
 // @access  Public
-// FIX: Use explicit Request and Response types to avoid conflicts.
-const createOrder = asyncHandler(async (req: Request, res: Response) => {
+// FIX: Use namespaced express types to avoid conflicts with global types.
+const createOrder = asyncHandler(async (req: express.Request, res: express.Response) => {
   const { cartItems, customerDetails }: { cartItems: CartItem[], customerDetails: any } = req.body;
 
   if (!cartItems || cartItems.length === 0) {

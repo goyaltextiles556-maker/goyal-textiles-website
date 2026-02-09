@@ -247,7 +247,7 @@ const CheckoutPage: React.FC = () => {
                   {emailSuggestions.length > 0 && (
                     <div className="absolute left-0 top-full mt-2 w-full bg-white border border-gray-200/80 rounded-lg shadow-lg max-h-64 overflow-y-auto z-50">
                       {emailSuggestions.map(suggestion => (
-                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 cursor-pointer border-b last:border-b-0 transition-colors duration-300 font-medium overflow-hidden" onMouseEnter={createRipple}>
+                        <div key={suggestion} onClick={() => selectEmailSuggestion(suggestion)} onMouseDown={createRipple} className="px-4 py-3 text-sm text-gray-700 hover:bg-blue-50/70 cursor-pointer border-b last:border-b-0 transition-colors duration-300 font-medium overflow-hidden relative">
                           {suggestion}
                         </div>
                       ))}
@@ -255,11 +255,11 @@ const CheckoutPage: React.FC = () => {
                   )}
                 </div>
                 <div>
-                  <div className="flex items-stretch rounded-lg border border-gray-300/60 overflow-hidden hover:border-primary-blue/40 transition-colors duration-300">
-                    <span className="inline-flex items-center px-4 bg-white text-gray-700 font-semibold text-sm whitespace-nowrap">
+                  <div className="flex items-stretch rounded-lg border border-gray-300/60 overflow-hidden hover:border-primary-blue/40 transition-colors duration-300 focus-within:ring-2 focus-within:ring-primary-blue/50 focus-within:border-primary-blue">
+                    <span className="inline-flex items-center px-4 bg-white text-gray-700 font-semibold text-sm whitespace-nowrap border-r border-gray-300/60">
                       🇮🇳 +91
                     </span>
-                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" placeholder="Phone Number (10 digits)" className="flex-1 px-4 py-3 text-sm placeholder:text-gray-500/70 bg-white focus:outline-none focus:ring-2 focus:ring-primary-blue/50 focus:ring-inset transition-all duration-300" />
+                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} required pattern="[0-9]{10}" placeholder="Phone Number (10 digits)" className="flex-1 px-4 py-3 text-sm placeholder:text-gray-500/70 bg-white focus:outline-none" />
                   </div>
                 </div>
               </div>
@@ -278,47 +278,32 @@ const CheckoutPage: React.FC = () => {
             <div className="sticky top-24 z-0 bg-white border border-gray-200/80 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-primary-blue/20 transition-all duration-300">
               <h2 className="text-lg font-bold text-gray-900 mb-6 hover:text-primary-blue transition-colors duration-300">Order Summary</h2>
               
-              {/* Product Images */}
-              {cartItems.length > 0 && (
-                <div className="mb-6 pb-6 border-b border-gray-200/80">
-                  <div className="space-y-4">
-                    {cartItems.map(item => (
-                      <div key={item.product.id} className="flex gap-4 hover:bg-blue-50/40 p-2 rounded transition-colors duration-300">
-                        {item.product.images && item.product.images[0] && (
-                          <Link to={`/product/${item.product.id}`}>
-                            <img 
-                              src={item.product.images[0]} 
-                              alt={item.product.name}
-                              className="w-20 h-20 object-cover rounded-lg border border-gray-200/60 hover:shadow-md transition-shadow duration-300"
-                            />
-                          </Link>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <Link to={`/product/${item.product.id}`} className="text-sm font-medium text-gray-900 leading-snug hover:text-primary-blue transition-colors duration-300">
-                            {item.product.name}
-                          </Link>
-                          <p className="text-xs text-gray-500 mt-1.5">Qty: {item.quantity}</p>
-                          <p className="text-base font-bold text-primary-blue mt-2 hover:text-blue-800 transition-colors duration-300">₹{(item.product.price * item.quantity).toLocaleString()}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {/* Price Breakdown */}
-              <div className="space-y-2.5 mb-6">
+              {/* Product List */}
+              <div className="space-y-4 mb-6 pb-6 border-b border-gray-200/80 max-h-72 overflow-y-auto pr-2">
                 {cartItems.map(item => (
-                  <div key={item.product.id} className="flex justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                    <span className="truncate">{item.product.name}</span>
-                    <span className="font-semibold text-gray-900 ml-2">₹{(item.product.price * item.quantity).toLocaleString()}</span>
+                  <div key={item.product.id} className="flex gap-4 hover:bg-blue-50/40 p-2 rounded-lg transition-colors duration-300">
+                    <Link to={`/product/${item.product.id}`} className="flex-shrink-0">
+                      <img 
+                        src={item.product.images[0]} 
+                        alt={item.product.name}
+                        className="w-20 h-20 object-cover rounded-lg border border-gray-200/60 hover:shadow-md transition-shadow duration-300"
+                      />
+                    </Link>
+                    <div className="flex-1 min-w-0">
+                      <Link to={`/product/${item.product.id}`} className="text-sm font-medium text-gray-900 leading-snug hover:text-primary-blue transition-colors duration-300 line-clamp-2">
+                        {item.product.name}
+                      </Link>
+                      <p className="text-xs text-gray-500 mt-1.5">Qty: {item.quantity}</p>
+                      <p className="text-base font-bold text-primary-blue mt-2 hover:text-blue-800 transition-colors duration-300">₹{(item.product.price * item.quantity).toLocaleString()}</p>
+                    </div>
                   </div>
                 ))}
               </div>
               
+              {/* Price Breakdown */}
               <div className="border-t border-gray-200/80 pt-4 space-y-2.5 mb-6">
-                 <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded transition-colors duration-300"><span className="text-gray-600 font-medium">Subtotal</span><span className="text-gray-900 font-semibold">₹{subtotal.toLocaleString()}</span></div>
-                 <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded transition-colors duration-300"><span className="text-gray-600 font-medium">Shipping</span><span className="text-gray-900 font-semibold">₹{shipping.toLocaleString()}</span></div>
+                 <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded-md transition-colors duration-300"><span className="text-gray-600 font-medium">Subtotal</span><span className="text-gray-900 font-semibold">₹{subtotal.toLocaleString()}</span></div>
+                 <div className="flex justify-between text-sm hover:bg-blue-50/40 p-1.5 rounded-md transition-colors duration-300"><span className="text-gray-600 font-medium">Shipping</span><span className="text-gray-900 font-semibold">₹{shipping.toLocaleString()}</span></div>
               </div>
               <div className="border-t border-gray-200/80 pt-4 mb-6">
                 <div className="flex justify-between items-center">

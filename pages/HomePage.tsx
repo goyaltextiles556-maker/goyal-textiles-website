@@ -1,5 +1,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
+// FIX: Use namespace import for react-router-dom to fix "no exported member" errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { categories } from '../data/products';
 import CategoryCard from '../components/CategoryCard';
 import { useScrollSpy } from '../context/ScrollSpyContext';
@@ -42,7 +44,7 @@ const HomePage: React.FC = () => {
       <section 
         ref={collectionsRef} 
         id="categories" 
-        className={`bg-gradient-to-b from-off-white/60 to-off-white pt-20 pb-24 text-center scroll-mt-28 transition-all duration-700 ease-out ${isCollectionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+        className={`bg-gradient-to-b from-off-white/60 to-off-white pt-20 pb-24 text-center scroll-mt-28 transition-all duration-500 ease-out ${isCollectionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">

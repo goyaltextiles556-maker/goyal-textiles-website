@@ -7,6 +7,7 @@ export const createRipple = (e: React.MouseEvent<HTMLElement>) => {
   // Ensure the element is positioned to contain the ripple
   if (getComputedStyle(element).position === 'static') {
     element.style.position = 'relative';
+    element.style.overflow = 'hidden';
   }
   
   const circle = document.createElement("span");
@@ -19,12 +20,7 @@ export const createRipple = (e: React.MouseEvent<HTMLElement>) => {
   circle.style.left = `${e.clientX - rect.left - radius}px`;
   circle.style.top = `${e.clientY - rect.top - radius}px`;
 
-  // Apply base ripple styles
-  circle.style.position = 'absolute';
-  circle.style.borderRadius = '50%';
-  circle.style.transform = 'scale(0)';
-  circle.style.animation = 'radialRipple 600ms linear';
-  circle.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+  // Apply base ripple styles from index.css
   circle.classList.add('radial-ripple');
 
   const existingRipple = element.querySelector('.radial-ripple');
@@ -33,4 +29,9 @@ export const createRipple = (e: React.MouseEvent<HTMLElement>) => {
   }
 
   element.appendChild(circle);
+  
+  // Remove the ripple after the animation completes
+  setTimeout(() => {
+    circle.remove();
+  }, 600);
 };

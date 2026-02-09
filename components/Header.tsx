@@ -231,7 +231,7 @@ const Header: React.FC = () => {
               )}
             </ReactRouterDOM.Link>
 
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center">
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
                 className={`transition-all duration-300 ease-out hover:scale-110 active:scale-95 p-2 ${

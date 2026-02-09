@@ -1,10 +1,11 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products, categories } from '../data/products';
-import { FiChevronLeft, FiChevronRight, FiMinus, FiPlus, FiInfo, FiChevronDown } from 'react-icons/fi';
+import { products } from '../data/products';
+import { FiChevronDown, FiInfo, FiMinus, FiPlus, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Button from '../components/Button';
 import { useCart } from '../hooks/useCart';
+import PolicySummary from '../components/PolicySummary';
 
 // Simple state-managed accordion component
 const Accordion: React.FC<{ title: string; children: React.ReactNode; defaultOpen?: boolean }> = ({ title, children, defaultOpen = false }) => {
@@ -35,6 +36,11 @@ const ProductDetailPage: React.FC = () => {
   
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   
+  // Swipe gallery state
+  const [dragStartX, setDragStartX] = React.useState(0);
+  const [dragOffset, setDragOffset] = React.useState(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+
   // Conditional quantity logic
   const isDecimal = product?.unit === 'meter' && product?.category !== 'gifting';
   const [quantity, setQuantity] = React.useState<number>(isDecimal ? 1.0 : 1);
@@ -42,6 +48,10 @@ const ProductDetailPage: React.FC = () => {
   const step = isDecimal ? 0.2 : 1;
   const minQuantity = isDecimal ? 0.2 : 1;
   const quantityPrecision = isDecimal ? 1 : 0;
+
+  // Refs for long-press functionality
+  const intervalRef = useRef<number | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   const handleQuantityChange = (newQuantity: number) => {
     const roundedQuantity = parseFloat(newQuantity.toFixed(2));
@@ -51,6 +61,78 @@ const ProductDetailPage: React.FC = () => {
         setQuantity(minQuantity);
     }
   };
+
+  // Handlers for long-press quantity buttons
+  const stopCounter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  const handleIncrement = () => {
+    setQuantity(q => parseFloat((q + step).toFixed(2)));
+  };
+  
+  const handleDecrement = () => {
+    setQuantity(q => {
+      const newQuantity = parseFloat((q - step).toFixed(2));
+      return newQuantity >= minQuantity ? newQuantity : minQuantity;
+    });
+  };
+
+  const startIncrement = () => {
+    stopCounter();
+    handleIncrement(); // Increment once immediately
+    timeoutRef.current = window.setTimeout(() => {
+      intervalRef.current = window.setInterval(handleIncrement, 100);
+    }, 400);
+  };
+
+  const startDecrement = () => {
+    stopCounter();
+    handleDecrement(); // Decrement once immediately
+    timeoutRef.current = window.setTimeout(() => {
+      intervalRef.current = window.setInterval(handleDecrement, 100);
+    }, 400);
+  };
+  
+  // Swipe handlers for image gallery
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (product && product.images.length <= 1) return;
+    setIsDragging(true);
+    setDragStartX('touches' in e ? e.touches[0].clientX : e.clientX);
+    e.preventDefault();
+  };
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || (product && product.images.length <= 1)) return;
+    const currentX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const offset = currentX - dragStartX;
+    setDragOffset(offset);
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const dragThreshold = 50; // pixels
+    if (dragOffset > dragThreshold) {
+      prevImage();
+    } else if (dragOffset < -dragThreshold) {
+      nextImage();
+    }
+
+    setDragOffset(0); // Reset offset
+  };
+
+  const nextImage = React.useCallback(() => {
+    if (!product) return;
+    setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+  }, [product]);
+
+  const prevImage = React.useCallback(() => {
+    if (!product) return;
+    setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+  }, [product]);
 
   if (!product) {
     return (
@@ -63,14 +145,9 @@ const ProductDetailPage: React.FC = () => {
     );
   }
   
-  const category = categories.find(c => c.id === product.category);
   const composition = product.materialDetails.split('.')[0]?.trim();
   const careInstructions = product.materialDetails.split('.').slice(1).join('.').trim();
-
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
-  
-  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
-  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
   
   const handleAddToCart = () => {
     addToCart(product, quantity);
@@ -81,26 +158,60 @@ const ProductDetailPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         {/* Image Gallery Column */}
-        <div className="space-y-4 sticky top-24">
-          <div className="relative animate-fade-in group">
-            <div className="aspect-w-1 aspect-h-1 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-              <img src={product.images[currentImageIndex]} alt={`${product.name} ${currentImageIndex + 1}`} className="w-full h-full object-cover group-hover:brightness-105 transition-all duration-300" />
+        <div className="space-y-4 lg:sticky lg:top-24 lg:z-10">
+          <div 
+            className="relative animate-fade-in group"
+          >
+            <div 
+              className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+              onMouseDown={handleDragStart} onMouseMove={handleDragMove} onMouseUp={handleDragEnd} onMouseLeave={handleDragEnd}
+              onTouchStart={handleDragStart} onTouchMove={handleDragMove} onTouchEnd={handleDragEnd}
+            >
+              <div 
+                className="flex"
+                style={{
+                  transform: `translateX(calc(-${currentImageIndex * 100}% + ${dragOffset}px))`,
+                  transition: isDragging ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: product.images.length > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default'
+                }}
+              >
+                {product.images.map((img, index) => (
+                  <div key={index} className="w-full flex-shrink-0 aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
+                    <img src={img} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover select-none" draggable="false" />
+                  </div>
+                ))}
+              </div>
             </div>
+
             {product.images.length > 1 && (
               <>
-                <button onClick={prevImage} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue hover:scale-110 active:scale-95 shadow-lg opacity-0 group-hover:opacity-100" aria-label="Previous image">
-                  <FiChevronLeft size={24} className="text-primary-blue" />
+                <button 
+                  onClick={prevImage} 
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/60 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700 hover:bg-white hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 lg:opacity-70 lg:group-hover:opacity-100" 
+                  aria-label="Previous image"
+                >
+                  <FiChevronLeft size={24} />
                 </button>
-                <button onClick={nextImage} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white p-3 rounded-full transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue hover:scale-110 active:scale-95 shadow-lg opacity-0 group-hover:opacity-100" aria-label="Next image">
-                  <FiChevronRight size={24} className="text-primary-blue" />
+                <button 
+                  onClick={nextImage} 
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/60 backdrop-blur-sm p-2 rounded-full shadow-md text-gray-700 hover:bg-white hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 lg:opacity-70 lg:group-hover:opacity-100"
+                  aria-label="Next image"
+                >
+                  <FiChevronRight size={24} />
                 </button>
               </>
             )}
           </div>
+
           {product.images.length > 1 && (
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-3 overflow-x-auto py-2 -mx-2 px-2">
               {product.images.map((img, index) => (
-                <button key={index} onClick={() => setCurrentImageIndex(index)} className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${currentImageIndex === index ? 'border-primary-blue scale-105 shadow-md' : 'border-transparent hover:border-gray-300'}`}>
+                <button 
+                  key={index} 
+                  onClick={() => setCurrentImageIndex(index)} 
+                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue ${currentImageIndex === index ? 'border-primary-blue shadow-md' : 'border-gray-200/80 hover:border-primary-blue/50'}`}
+                  aria-label={`Go to image ${index + 1}`}
+                >
                   <img src={img} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
                 </button>
               ))}
@@ -138,11 +249,33 @@ const ProductDetailPage: React.FC = () => {
             </div>
             <div className="bg-gray-50/80 rounded-xl p-5 border border-gray-200/60">
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-lg text-gray-800">Quantity</label>
-                <div className="flex items-center border-2 border-gray-300/60 rounded-lg bg-white hover:border-primary-blue/30 transition-colors duration-300 w-fit">
-                  <button onClick={() => handleQuantityChange(quantity - step)} className="p-3 hover:bg-gray-100 rounded-l-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Decrease quantity" disabled={quantity <= minQuantity}><FiMinus size={16} className="text-gray-700" /></button>
-                  <input type="text" value={quantity.toFixed(quantityPrecision)} readOnly className="w-20 text-center font-semibold text-gray-800 bg-transparent focus:outline-none cursor-default" />
-                  <button onClick={() => handleQuantityChange(quantity + step)} className="p-3 hover:bg-gray-100 rounded-r-md transition-colors duration-200" aria-label="Increase quantity"><FiPlus size={16} className="text-gray-700" /></button>
+                <label htmlFor="quantity-input" className="font-semibold text-lg text-gray-800">Quantity</label>
+                <div className="flex items-center border-2 border-gray-300/60 rounded-lg bg-white has-[:focus]:border-primary-blue/50 has-[:focus]:ring-2 has-[:focus]:ring-primary-blue/20 transition-all duration-300 w-fit">
+                  <button 
+                    onMouseDown={startDecrement} onMouseUp={stopCounter} onMouseLeave={stopCounter} onTouchStart={startDecrement} onTouchEnd={stopCounter}
+                    className="p-3 hover:bg-gray-100 rounded-l-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+                    aria-label="Decrease quantity" 
+                    disabled={quantity <= minQuantity}
+                  >
+                    <FiMinus size={16} className="text-gray-700" />
+                  </button>
+                  <input
+                    id="quantity-input"
+                    type="number"
+                    value={quantity.toFixed(quantityPrecision)}
+                    onChange={(e) => handleQuantityChange(parseFloat(e.target.value) || minQuantity)}
+                    step={step}
+                    min={minQuantity}
+                    className="w-20 text-center font-semibold text-gray-800 bg-transparent focus:outline-none"
+                    aria-label="Product quantity"
+                  />
+                  <button 
+                    onMouseDown={startIncrement} onMouseUp={stopCounter} onMouseLeave={stopCounter} onTouchStart={startIncrement} onTouchEnd={stopCounter}
+                    className="p-3 hover:bg-gray-100 rounded-r-md transition-colors duration-200" 
+                    aria-label="Increase quantity"
+                  >
+                    <FiPlus size={16} className="text-gray-700" />
+                  </button>
                 </div>
               </div>
               {isDecimal && product.fabricDetails?.usageReference && (
@@ -175,6 +308,9 @@ const ProductDetailPage: React.FC = () => {
                 <p>{careInstructions}</p>
               </Accordion>
             )}
+             <Accordion title="Our Policies">
+              <PolicySummary />
+            </Accordion>
           </div>
         </div>
       </div>

@@ -1,16 +1,16 @@
 
-// FIX: Import explicit types from express to resolve type conflicts.
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+// FIX: Import the default express module and use namespaced types to avoid conflicts.
+import express from 'express';
 
-// FIX: Use explicit express types for request handlers to avoid conflicts.
-const notFound = (req: Request, res: Response, next: NextFunction) => {
+// FIX: Use namespaced express types to ensure correct type resolution.
+const notFound = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
   next(error);
 };
 
-// FIX: Use explicit express types for error handlers to avoid conflicts.
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+// FIX: Use namespaced express types for the error handler.
+const errorHandler: express.ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
