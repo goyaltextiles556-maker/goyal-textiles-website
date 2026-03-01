@@ -5,14 +5,14 @@ import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import Product from '../models/productModel.js';
 // FIX: Import the Product type as ProductType to use for type casting.
-import { CartItem, Product as ProductType } from '../types/types.js';
+import { CartItem, CustomerDetails, Product as ProductType } from '../types/types.js';
 
 // @desc    Create a new order
 // @route   POST /api/create-order
 // @access  Public
 // FIX: Use namespaced express types to avoid conflicts with global types.
 const createOrder = asyncHandler(async (req: express.Request, res: express.Response) => {
-  const { cartItems, customerDetails }: { cartItems: CartItem[], customerDetails: any } = req.body;
+  const { cartItems, customerDetails }: { cartItems: CartItem[]; customerDetails: CustomerDetails } = req.body;
 
   if (!cartItems || cartItems.length === 0) {
     res.status(400);
