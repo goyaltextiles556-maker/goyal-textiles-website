@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "set NODE_OPTIONS=--dns-result-order=ipv4first && concurrently \"npm:dev:frontend\" \"npm:dev:backend\"",
+    "dev": "NODE_OPTIONS=--dns-result-order=ipv4first concurrently \"npm:dev:frontend\" \"npm:dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "cd backend && npm run dev",
     "build": "vite build",
