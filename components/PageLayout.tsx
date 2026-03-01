@@ -13,7 +13,7 @@ const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [location.key]);
 
   return (
-    <div className={`container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-6 md:pb-8 transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
+    <div className={`container mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-24 pb-6 md:pb-8 transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
       {children}
     </div>
   );

@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -31,18 +30,21 @@ export interface CartItem {
   quantity: number;
 }
 
+
+export interface CustomerDetails {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export interface Order {
-  _id?: any; // MongoDB ID
+  _id?: string; // MongoDB ID
   razorpay_order_id?: string;
   razorpay_payment_id?: string;
   amount: number;
   status: 'placed' | 'paid' | 'created';
   items: CartItem[];
-  customer: {
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
+  customer: CustomerDetails;
   createdAt: Date;
 }

@@ -30,8 +30,8 @@ const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto animate-fade-in-up">
-      <h1 className="text-4xl font-display font-bold text-primary-blue text-center mb-8">Shopping Cart <span className="block sm:inline text-2xl font-medium text-gray-600">({cartCount} {cartCount === 1 ? 'item' : 'items'})</span></h1>
+    <div className="max-w-5xl mx-auto animate-fade-in-up px-2 sm:px-0">
+      <h1 className="text-3xl sm:text-4xl font-display font-bold text-primary-blue text-center mb-8">Shopping Cart <span className="block sm:inline text-xl sm:2xl font-medium text-gray-600">({cartCount} {cartCount === 1 ? 'item' : 'items'})</span></h1>
       <div className="bg-white border border-gray-200/70 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
         {cartItems.map((item, index) => {
           const isDecimal = item.product.unit === 'meter' && item.product.category !== 'gifting';
@@ -45,19 +45,19 @@ const CartPage: React.FC = () => {
           };
 
           return (
-            <div key={item.cartItemId} className="p-4 sm:p-6 border-b border-gray-200/50 last:border-b-0 hover:bg-blue-50/40 transition-colors duration-300 animate-fade-in-up group" style={{ animationDelay: `${index * 50}ms` }}>
+            <div key={item.cartItemId} className="p-5 sm:p-6 border-b border-gray-200/50 last:border-b-0 hover:bg-blue-50/40 transition-colors duration-300 animate-fade-in-up group" style={{ animationDelay: `${index * 50}ms` }}>
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6">
                 
                 {/* Image */}
-                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="flex-shrink-0 self-center">
-                  <img src={item.product.images[0]} alt={item.product.name} className="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:brightness-110"/>
+                <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="flex-shrink-0 self-center mb-4 sm:mb-0">
+                  <img src={item.product.images[0]} alt={item.product.name} className="w-32 h-32 sm:w-32 sm:h-32 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer hover:brightness-110"/>
                 </ReactRouterDOM.Link>
                 
                 {/* Details & Desktop Actions */}
-                <div className="mt-4 sm:mt-0 flex-grow flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex-grow flex flex-col sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
                   {/* Name & Price */}
                   <div className="flex-grow min-w-0">
-                    <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-semibold text-base sm:text-lg hover:text-primary-blue transition-colors duration-250 ease-out line-clamp-2">{item.product.name}</ReactRouterDOM.Link>
+                    <ReactRouterDOM.Link to={`/product/${item.product.id}`} className="font-semibold text-lg sm:text-lg hover:text-primary-blue transition-colors duration-250 ease-out line-clamp-2">{item.product.name}</ReactRouterDOM.Link>
                     <p className="text-sm text-gray-500 mt-1">₹{item.product.price.toLocaleString()} / {item.product.unit}</p>
                   </div>
                   
@@ -79,16 +79,18 @@ const CartPage: React.FC = () => {
               </div>
 
               {/* Mobile Quantity & Total */}
-              <div className="sm:hidden mt-4 pt-4 border-t border-gray-200/60">
+              <div className="sm:hidden mt-2 pt-4 border-t border-gray-200/60">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center border border-gray-300/60 rounded-lg bg-white transition-colors duration-300">
                     <button onClick={() => handleQuantityChange(item.quantity - step)} className="p-2.5 hover:bg-gray-100 rounded-l-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue/50 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Decrease quantity" disabled={item.quantity <= minQuantity}><FiMinus size={16} className="text-gray-700" /></button>
-                    <span className="px-3 font-semibold text-center text-gray-800 w-16">{item.quantity.toFixed(quantityPrecision)}</span>
+                    <span className="px-3 font-semibold text-center text-gray-800 w-14">{item.quantity.toFixed(quantityPrecision)}</span>
                     <button onClick={() => handleQuantityChange(item.quantity + step)} className="p-2.5 hover:bg-gray-100 rounded-r-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue/50" aria-label="Increase quantity"><FiPlus size={16} className="text-gray-700" /></button>
                   </div>
-                  <p className="font-bold text-lg text-primary-blue">
-                    ₹{(item.product.price * item.quantity).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </p>
+                  <div className="text-right">
+                    <p className="font-bold text-lg text-primary-blue">
+                      ₹{(item.product.price * item.quantity).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </p>
+                  </div>
                   <button onClick={() => removeFromCart(item.cartItemId)} className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200" aria-label="Remove item"><FiTrash2 size={20} /></button>
                 </div>
               </div>

@@ -163,7 +163,7 @@ const Header: React.FC = () => {
             <ReactRouterDOM.Link 
               to="/" 
               onClick={(e) => handleNavClick(e, '/')}
-              className={`text-lg sm:text-xl font-bold uppercase font-display tracking-wider transition-all duration-300 ease-out whitespace-nowrap hover:scale-105 active:scale-95 ${
+              className={`text-base xs:text-lg sm:text-xl font-bold uppercase font-display tracking-wider transition-all duration-300 ease-out whitespace-nowrap hover:scale-105 active:scale-95 ${
                 isHeaderDark ? 'text-off-white drop-shadow-sm' : 'text-primary-blue'
               }`}
             >

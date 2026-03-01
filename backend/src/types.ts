@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -19,18 +18,21 @@ export interface CartItem {
   quantity: number;
 }
 
+
+export interface CustomerDetails {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export interface Order {
-  _id?: any;
+  _id?: string;
   razorpay_order_id?: string;
   razorpay_payment_id?: string;
   amount: number;
   status: 'placed' | 'paid' | 'created';
   items: CartItem[];
-  customer: {
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
+  customer: CustomerDetails;
   createdAt: Date;
 }

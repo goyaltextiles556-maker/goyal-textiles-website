@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -28,4 +27,11 @@ export interface Category {
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export interface CustomerDetails {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
 }
